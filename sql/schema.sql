@@ -39,3 +39,5 @@ ALTER TABLE roles
 add FOREIGN KEY(user_id) REFERENCES user(id);
 
 ALTER TABLE user ADD email varchar(50);
+
+-- DROP DATABASE DIGITAL_GARDEN;
