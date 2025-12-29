@@ -1,0 +1,5 @@
+# Database config (contains credentials)
+config/database.php
+
+# Node dependencies
+node_modules/
