@@ -1,4 +1,5 @@
-CREATE DATABASE DIGITAL_GARDEN
+CREATE DATABASE DIGITAL_GARDEN;
+use DIGITAL_GARDEN;
 CREATE TABLE
     User (
         id INT PRIMARY key AUTO_INCREMENT,
@@ -7,6 +8,7 @@ CREATE TABLE
         Registration_date DATE,
         Login_date DATE
     );
+
 
 CREATE TABLE
     Theme (
@@ -27,5 +29,13 @@ CREATE TABLE
         theme_id INT,
         FOREIGN KEY (theme_id) REFERENCES Theme (id)
     );
+CREATE Table Roles(
+    id int PRIMARY KEY AUTO_INCREMENT,
+    title ENUM('admin', 'user')
+);
+ALTER TABLE roles 
+add COLUMN user_id INT ;
+ALTER TABLE roles 
+add FOREIGN KEY(user_id) REFERENCES user(id);
 
-ALTER TABLE utilisateur ADD email varchar(50);
+ALTER TABLE user ADD email varchar(50);
