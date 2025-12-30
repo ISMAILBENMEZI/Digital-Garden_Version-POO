@@ -1,0 +1,75 @@
+.index_main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal {
+    margin-top: 10px;
+    background: linear-gradient(135deg, #fff 0%, #c3cfe2 100%);
+    border-radius: 20px;
+    padding: 30px;
+    max-width: 600px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.modal_log h1 {
+    color: green;
+    font-size: 1.5rem;
+    font-weight: 9000;
+}
+
+.modal_log img {
+    width: 200px;
+}
+
+.modal_log {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-bottom: 25px;
+}
+
+.scroll-container {
+    width: 100%;
+    overflow: hidden;
+    margin-top: 20px;
+}
+
+.scroll-track {
+    display: flex;
+    width: max-content;
+    animation: scroll 25s linear infinite;
+    gap: 10px;
+}
+
+.scroll-content {
+    display: flex;
+    gap: 10px;
+}
+
+.scroll-content img {
+    width: 300px;
+    flex-shrink: 0;
+    border-radius: 10px;
+}
+
+.scroll-track:hover {
+    animation-play-state: paused;
+}
+
+@keyframes scroll {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-50%);
+    }
+}
