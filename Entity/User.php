@@ -1,6 +1,6 @@
 <?php
 
-abstract class User{
+ abstract class User {
     protected $id;
     protected $username;
     protected $password;
@@ -26,6 +26,8 @@ abstract class User{
             throw new InvalidArgumentException('id doit etre positive');
         }
     }
-    
-    abstract public function getRole();
+    public function ADRole(){
+        
+    }
 }
+    
