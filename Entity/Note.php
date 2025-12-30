@@ -60,5 +60,5 @@ class note
         else{
             throw new InvalidArgumentException("Rating must be between 0 and 5.");
         }
-    }
+}
 }
