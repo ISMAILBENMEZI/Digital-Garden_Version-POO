@@ -26,7 +26,7 @@
             throw new InvalidArgumentException('id doit etre positive');
         }
     }
-    public function ADRole(){
+    public function ADRoles(){
         
     }
 }
