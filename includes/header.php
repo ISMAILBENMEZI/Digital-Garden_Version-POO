@@ -18,7 +18,7 @@
                       Login
                   </a>
               </div>
-          <?php elseif ($page === 'register'): ?>
+          <?php elseif ($page==='register'): ?>
               <div class="flex space-x-4">
                   <a href="../register.php"
                       class="px-4 py-2 rounded-md border border-white hover:bg-white hover:text-green-600 transition">
@@ -30,6 +30,6 @@
                       Login
                   </a>
               </div>
-          <?php endif; ?>
+          <?php endif;?>
       </nav>
   </header>
