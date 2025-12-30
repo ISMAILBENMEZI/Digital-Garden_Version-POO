@@ -5,9 +5,11 @@ CREATE TABLE
         id INT PRIMARY key AUTO_INCREMENT,
         name VARCHAR(50),
         password VARCHAR(50),
-        Registration_date DATE,
-        Login_date DATE
+        statut ENUM('pending','active','blocked'),
+        Registration_date DATETIME DEFAULT CURRENT_TIMESTAMP
     );
+
+    DROP TABLE user;
 
 
 CREATE TABLE
@@ -31,11 +33,14 @@ CREATE TABLE
     );
 CREATE Table Roles(
     id int PRIMARY KEY AUTO_INCREMENT,
-    title ENUM('admin', 'user')
+    status ENUM('admin', 'user')
 );
+
 ALTER TABLE roles 
 add COLUMN user_id INT ;
 ALTER TABLE roles 
 add FOREIGN KEY(user_id) REFERENCES user(id);
 
 ALTER TABLE user ADD email varchar(50);
+
+-- DROP DATABASE DIGITAL_GARDEN;
