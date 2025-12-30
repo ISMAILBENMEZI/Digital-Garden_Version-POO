@@ -23,7 +23,7 @@
                 </div>
             </div>
             <div>
-                <img src="./IMG/Gemini_Generated_Image_69qsfj69qsfj69qs.png" alt="">
+                <img src="./IMG/Gemini_Generated_Image_69qsfj69qsfj69qs.png" alt="jf">
             </div>
         </div>
         <div class="scroll-container">
