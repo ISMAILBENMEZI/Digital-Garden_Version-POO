@@ -1,23 +1,25 @@
 <?php
-
-abstract class User{
-    protected $id;
-    protected $username;
-    protected $password;
-    protected $roles = [];
+class User{
+    private $id;
+    private $userName;
+    private $password;
+    private $email;
+    private $role;
+    private $statut;
     
-    public function __construct($username , $password)
+    public function __construct($userName , $password, $email,$role = 'user', $statut = "pending")
     {
-       $this->username = $username;
+       $this->userName = $userName;
        $this->password = $password;
+       $this->role = $role;
+       $this->statut = $statut;
+       $this->email = $email;
     }
 
-    public function getUsername(){
-        return $this->username;
+    public function __get($property){
+        return $this->$property;
     }
-    public function getPassword(){
-        return $this->password;
-    }
+
 
     public function setId($id){
         if($id > 0){
@@ -26,6 +28,4 @@ abstract class User{
             throw new InvalidArgumentException('id doit etre positive');
         }
     }
-    
-    abstract public function getRole();
 }
