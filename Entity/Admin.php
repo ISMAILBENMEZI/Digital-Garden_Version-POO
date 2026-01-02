@@ -6,7 +6,7 @@ class Admin extends User {
    {
     return "Admin";
    }
-   public function canMange(){
+   public function setStatusUser(){
     return true;
    }
 }
