@@ -8,7 +8,7 @@ CREATE TABLE
         email VARCHAR(50),
         statut ENUM('pending','active','blocked'),
         Registration_date DATETIME DEFAULT CURRENT_TIMESTAMP,
-        role_id int,
+        role_id int DEFAULT 1,
         Foreign Key (role_id) REFERENCES roles(id)
     );
 CREATE TABLE
