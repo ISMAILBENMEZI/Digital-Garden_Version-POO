@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (!empty($errors)) {
         $_SESSION['errors'] = $errors;
-        header('Location: login.php');
+        header('Location: public/login.php');
         exit;
     }
 
@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (!$user) {
         $_SESSION['errors'] = ["Email ou mot de passe incorrect."];
-        header('Location: login.php');
+        header('Location: public/login.php');
         exit;
     }
 
@@ -40,11 +40,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     $_SESSION['user'] = [
         'id' => $user->id,
-        'email' => $user->email
+        'name' => $user->name,
+        'email' => $user->email,
+        'role' => $user->role
     ];
-
+   if($user->statut === "pending" ){
+    header('Location: public/accountPending.php');
+    exit;
+   }else if($user->role === 'user'){
     header('Location: dashboard.php');
     exit;
+   }else{
+    header('Location: ./public/dashboard.php');
+    exit;
+   }
+    
 }
 
 

@@ -8,7 +8,10 @@
 </head>
 
 <body class="min-h-screen flex items-center justify-center bg-gray-50">
-
+    <?php 
+     session_start();
+     include '../includes/header.php';
+    ?>
     <div class="max-w-md w-full bg-white p-8 rounded-2xl shadow-md text-center">
 
 
@@ -20,7 +23,7 @@
 
 
         <h1 class="text-2xl font-semibold text-gray-800 mb-2">
-            Hello Mr. <span class="text-green-600">Username</span>
+            Hello Mr. <span class="text-green-600"><?= $_SESSION['user']['name'] ?></span>
         </h1>
 
         <p class="text-gray-600 mb-4">

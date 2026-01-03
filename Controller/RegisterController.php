@@ -19,11 +19,12 @@ if (isset($_POST['createAccount'])) {
             throw new InvalidArgumentException("Invalid email format");
 
         if ($password === $confirmpassword) {
-            $password = password_hash($password, PASSWORD_DEFAULT);
+            
+            $passwordH = password_hash($password, PASSWORD_DEFAULT);
 
             $user = new User(
                 userName: $userName,
-                password: $password,
+                password: $passwordH,
                 email: $email
             );
 
