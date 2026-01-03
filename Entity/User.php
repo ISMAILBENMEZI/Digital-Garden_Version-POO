@@ -1,12 +1,11 @@
 <?php
-
-abstract class User{
-    protected $id;
-    protected $userName;
-    protected $password;
-    protected $email;
-    protected $statut;
-    protected $role;
+class User{
+    private $id;
+    private $userName;
+    private $password;
+    private $email;
+    private $role;
+    private $statut;
     
     public function __construct($userName , $password, $email,$role = 'user', $statut = "pending")
     {
@@ -29,7 +28,4 @@ abstract class User{
             throw new InvalidArgumentException('id doit etre positive');
         }
     }
-    
-    abstract public function getRole();
 }
-    

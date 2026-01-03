@@ -8,7 +8,19 @@ class AuthController {
         $this->conn = $db->getConnection();
     }
   public function Login ($email , $password){
-    $sql = "select email , password from user where email = :email";
+    $sql = "
+        SELECT 
+            u.id,
+            u.email,
+            u.password,
+            u.statut,
+            r.status AS role
+        FROM user u
+        JOIN roles r ON u.role_id = r.id
+        WHERE u.email = :email
+        LIMIT 1
+        ";
+
     $stmt = $this->conn->prepare($sql);
     $stmt->execute([
      ":email" => $email
@@ -16,25 +28,20 @@ class AuthController {
     
   
     $user = $stmt->fetch(PDO::FETCH_OBJ);
+
     if(!$user){
         return false;
     }
-    if(!(password_verify($user->password , $password))){
-        return false;
+
+    if(password_verify($password, $user->password)){
+       unset($user->password);
+       return $user;
+  
+        
     }
-    return $user;
-  }
+
+        throw new InvalidArgumentException("password inccorect");
+        
+        return false;
 }
-
-$db = new DataBaseConnection();
-
-
-$auth = new AuthController($db);
-
-$user = $auth->Login("oussama@gmail." ,"11111");
-
-if($user) {
-    echo 'ok';
-}else {
-   echo 'error';
 }
