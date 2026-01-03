@@ -7,6 +7,9 @@ require '../Controller/adminController.php';
     <meta charset="UTF-8">
     <title>Admin Dashboard</title>
     <style>
+        body {
+            height: 100Vh;
+        }
         table {
              border-collapse: collapse;
              width: 100%;
@@ -18,11 +21,29 @@ require '../Controller/adminController.php';
              }
         th { background: #eee; }
         form { display: inline; }
+        header {
+            position: relative;
+            top: 0;
+        }
+        footer {
+            position: relative;
+            bottom: 0;
+        }
+        
+
+
     </style>
 </head>
 <body>
-
-<h2>Users Dashboard</h2>
+<?php 
+$page = 'login';
+include '../includes/header.php';
+?>
+<h2>users table</h2>
+<?php if(!empty($_SESSION['message'])) :?>
+    <p id="message" style="color:green"><?= htmlspecialchars($_SESSION['message'])?></p>
+    <?php unset($_SESSION['message']) ?>
+<?php endif ?>
 
 <table>
     <thead>
@@ -56,6 +77,19 @@ require '../Controller/adminController.php';
         <?php endforeach; ?>
     </tbody>
 </table>
+<?php 
+$page = 'login';
+include '../includes/footer.php';
+?>
+<script>
+    setTimeout( ()=>{
+        const msg = document.getElementById('message');
+        if(msg){
+            msg.style.display = "none";
+        }
+    },2000
 
+    )
+</script>
 </body>
 </html>
