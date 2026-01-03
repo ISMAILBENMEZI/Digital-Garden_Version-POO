@@ -38,34 +38,63 @@
               </ul>
           </div>
 
-          <div>
-              <h3 class="text-lg font-semibold mb-4 border-l-4 border-green-500 pl-3">
-                  Community
-              </h3>
-              <div class="flex flex-wrap gap-3">
-                  <a href="#">
-                      <img src="./IMG/letter-f_8370671.png"
-                          class="w-12 h-12 rounded-full transition transform hover:-translate-y-1 hover:shadow-[0_0_10px_#22c55e]"
-                          alt="Facebook">
-                  </a>
-                  <a href="#">
-                      <img src="./IMG/letter-t_8370646 (1).png"
-                          class="w-12 h-12 rounded-full transition transform hover:-translate-y-1 hover:shadow-[0_0_10px_#22c55e]"
-                          alt="Instagram">
-                  </a>
-                  <a href="#">
-                      <img src="./IMG/whatsapp_3698386.png"
-                          class="w-12 h-12 rounded-full transition transform hover:-translate-y-1 hover:shadow-[0_0_10px_#22c55e]"
-                          alt="X">
-                  </a>
-                  <a href="#">
-                      <img src="./IMG/photo-camera_3324888.png"
-                          class="w-12 h-12 rounded-full transition transform hover:-translate-y-1 hover:shadow-[0_0_10px_#22c55e]"
-                          alt="YouTube">
-                  </a>
+          <?php if ($page === 'index'): ?>
+              <div>
+                  <h3 class="text-lg font-semibold mb-4 border-l-4 border-green-500 pl-3">
+                      Community
+                  </h3>
+                  <div class="flex flex-wrap gap-3">
+                      <a href="#">
+                          <img src="./IMG/letter-f_8370671.png"
+                              class="w-12 h-12 rounded-full transition transform hover:-translate-y-1 hover:shadow-[0_0_10px_#22c55e]"
+                              alt="Facebook">
+                      </a>
+                      <a href="#">
+                          <img src="./IMG/letter-t_8370646 (1).png"
+                              class="w-12 h-12 rounded-full transition transform hover:-translate-y-1 hover:shadow-[0_0_10px_#22c55e]"
+                              alt="Instagram">
+                      </a>
+                      <a href="#">
+                          <img src="./IMG/whatsapp_3698386.png"
+                              class="w-12 h-12 rounded-full transition transform hover:-translate-y-1 hover:shadow-[0_0_10px_#22c55e]"
+                              alt="X">
+                      </a>
+                      <a href="#">
+                          <img src="./IMG/photo-camera_3324888.png"
+                              class="w-12 h-12 rounded-full transition transform hover:-translate-y-1 hover:shadow-[0_0_10px_#22c55e]"
+                              alt="YouTube">
+                      </a>
+                  </div>
               </div>
-          </div>
-
+          <?php elseif ($page === 'register'): ?>
+              <div>
+                  <h3 class="text-lg font-semibold mb-4 border-l-4 border-green-500 pl-3">
+                      Community
+                  </h3>
+                  <div class="flex flex-wrap gap-3">
+                      <a href="#">
+                          <img src="../IMG/letter-f_8370671.png"
+                              class="w-12 h-12 rounded-full transition transform hover:-translate-y-1 hover:shadow-[0_0_10px_#22c55e]"
+                              alt="Facebook">
+                      </a>
+                      <a href="#">
+                          <img src="../IMG/letter-t_8370646 (1).png"
+                              class="w-12 h-12 rounded-full transition transform hover:-translate-y-1 hover:shadow-[0_0_10px_#22c55e]"
+                              alt="Instagram">
+                      </a>
+                      <a href="#">
+                          <img src="../IMG/whatsapp_3698386.png"
+                              class="w-12 h-12 rounded-full transition transform hover:-translate-y-1 hover:shadow-[0_0_10px_#22c55e]"
+                              alt="X">
+                      </a>
+                      <a href="#">
+                          <img src="../IMG/photo-camera_3324888.png"
+                              class="w-12 h-12 rounded-full transition transform hover:-translate-y-1 hover:shadow-[0_0_10px_#22c55e]"
+                              alt="YouTube">
+                      </a>
+                  </div>
+              </div>
+          <?php endif; ?>
       </div>
 
       <div class="border-t border-gray-800 py-4 text-center text-sm text-gray-300">
