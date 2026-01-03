@@ -29,6 +29,14 @@
                       class="px-4 py-2 rounded-md bg-white text-green-600 font-semibold hover:bg-green-100 transition">
                       Login
                   </a>
+            <?php  elseif (!empty($_SESSION['user'])) :?>
+                <div class="flex space-x-4">
+                  <a href="../logout.php"
+                      class="px-4 py-2 rounded-md border border-white hover:bg-white hover:text-green-600 transition">
+                      logout
+                  </a>
+
+              </div>
               <?php endif; ?>
       </nav>
   </header>
