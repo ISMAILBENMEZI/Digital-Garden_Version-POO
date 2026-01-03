@@ -8,7 +8,7 @@ class AuthController {
         $this->conn = $db->getConnection();
     }
   public function Login ($email , $password){
-    $sql = "select email , password from user where email = :email";
+    $sql = "select * from user where email = :email";
     $stmt = $this->conn->prepare($sql);
     $stmt->execute([
      ":email" => $email
@@ -26,15 +26,3 @@ class AuthController {
   }
 }
 
-$db = new DataBaseConnection();
-
-
-$auth = new AuthController($db);
-
-$user = $auth->Login("oussama@gmail." ,"11111");
-
-if($user) {
-    echo 'ok';
-}else {
-   echo 'error';
-}
