@@ -20,7 +20,7 @@
 
 
         <h1 class="text-2xl font-semibold text-gray-800 mb-2">
-            Hello Mr. <span class="text-green-600">Username</span>
+            Hello Mr.<span class="text-green-600">Username</span>
         </h1>
 
         <p class="text-gray-600 mb-4">
