@@ -1,16 +1,18 @@
 CREATE DATABASE DIGITAL_GARDEN;
+
 use DIGITAL_GARDEN;
+
 CREATE TABLE
     User (
         id INT PRIMARY key AUTO_INCREMENT,
         name VARCHAR(50),
-        password VARCHAR(50),
-        statut ENUM('pending','active','blocked'),
-        Registration_date DATETIME DEFAULT CURRENT_TIMESTAMP
+        password VARCHAR(225),
+        email VARCHAR(50),
+        statut ENUM ('pending', 'active', 'blocked'),
+        Registration_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+        role_id int DEFAULT 1,
+        Foreign Key (role_id) REFERENCES roles (id)
     );
-
-    DROP TABLE user;
-
 
 CREATE TABLE
     Theme (
@@ -31,16 +33,18 @@ CREATE TABLE
         theme_id INT,
         FOREIGN KEY (theme_id) REFERENCES Theme (id)
     );
-CREATE Table Roles(
-    id int PRIMARY KEY AUTO_INCREMENT,
-    status ENUM('admin', 'user')
-);
 
-ALTER TABLE roles 
-add COLUMN user_id INT ;
-ALTER TABLE roles 
-add FOREIGN KEY(user_id) REFERENCES user(id);
+CREATE Table
+    Roles (
+        id int PRIMARY KEY AUTO_INCREMENT,
+        status ENUM ('admin', 'user')
+    );
 
-ALTER TABLE user ADD email varchar(50);
+insert into
+    roles (status)
+VALUES
+    ('user'),
+    ('admin');
 
--- DROP DATABASE DIGITAL_GARDEN;
+
+UPDATE user SET role_id = 2 , statut = 'active' where id = 2;

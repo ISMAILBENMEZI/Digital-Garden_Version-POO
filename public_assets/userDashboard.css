@@ -1,0 +1,275 @@
+#userMain {
+    max-width: 1500px;
+    margin: 0 auto;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.My_themes {
+    background: #fff;
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    min-width: 280px;
+    max-width: 400px;
+    flex: 1;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+.My_themes h2 {
+    color: #58628d;
+    margin-bottom: 20px;
+    font-size: 24px;
+    text-align: center;
+}
+
+.add_theme_btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(135deg, #00FF00 0%, #025904 100%);
+    color: white;
+    border: none;
+    border-radius: 20px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-bottom: 20px;
+    transition: all 0.3s;
+}
+
+.add_theme_btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 20px rgba(6, 99, 6, 0.4);
+}
+
+.the_myThemes {
+    max-width: 600px;
+}
+
+.card-body {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.card-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: #374151;
+    text-transform: capitalize;
+}
+
+.theme {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    padding: 15px;
+    border-radius: 12px;
+    margin-bottom: 12px;
+    transition: all 0.3s;
+    position: relative;
+}
+
+.theme:hover {
+    transform: translateX(5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.theme .buttons {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.theme input[type="submit"][value="modify"],
+.theme input[type="submit"][value="delete"],
+.theme input[type="submit"][value="View Note"] {
+    background-color: #2563eb;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.theme input[type="submit"][value="delete"] {
+    background-color: #FF0000;
+}
+
+.theme input[type="submit"][value="View Note"] {
+    background-color: #8800FF;
+}
+
+.modal {
+    margin-top: 10px;
+    background: linear-gradient(135deg, #fff 0%, #c3cfe2 100%);
+    border-radius: 20px;
+    padding: 30px;
+    max-width: 600px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.modal_log h1 {
+    color: green;
+    font-size: 1.5rem;
+    font-weight: 9000;
+}
+
+.modal_log img {
+    width: 200px;
+}
+
+.modal_log {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-bottom: 25px;
+}
+
+.Add_Note_btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    background: linear-gradient(135deg, #00FF00 0%, #025904 100%);
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    font-weight: bold;
+    transition: all 0.3s;
+    padding: 7px;
+    border-radius: 10px;
+}
+
+.my_Notes {
+    flex: 2;
+    height: 100%;
+    background: #fff;
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    min-width: 280px;
+    max-width: 1000px;
+    flex: 1;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+.my_Notes h2 {
+    color: #58628d;
+    margin-bottom: 20px;
+    font-size: 24px;
+    text-align: center;
+}
+
+.my_Notes .notes_list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 10px;
+}
+
+.note {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    gap: 10px;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    padding: 15px;
+    border-radius: 12px;
+    margin-bottom: 12px;
+    transition: all 0.3s;
+    position: relative;
+}
+
+.note:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(6, 99, 6, 0.4);
+}
+
+
+.note_titleDate {
+    display: flex;
+    justify-content: space-between;
+    color: black;
+    font-weight: 500;
+}
+
+.note_titleDate h3 {
+    font-size: 16px;
+    font-weight: 900;
+    text-transform: capitalize;
+}
+
+.note_buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.note input[type="submit"][value="modify"],
+.note input[type="submit"][value="delete"] {
+    background-color: #2563eb;
+    font-size: 16px;
+    color: white;
+    font-weight: 500;
+    padding: 5px 25px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.note input[type="submit"][value="delete"] {
+    background-color: #FF0000;
+}
+
+.note input[type="submit"][value="modify"]:hover,
+.note input[type="submit"][value="delete"]:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+}
+
+.note_content p {
+    font-size: 15px;
+    font-weight: 500;
+    color: black;
+}
+
+.starRat {
+    font-size: 24px;
+    color: #fbbf24;
+
+}
+
+.starEmpty {
+    font-size: 24px;
+    color: #4A4A4A;
+}
+
+.raing input[type="submit"][value="Top Rated"] {
+    background-color: #4A4A4A;
+    font-size: 16px;
+    color: white;
+    font-weight: 500;
+    padding: 5px 25px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-bottom: 10px;
+}
