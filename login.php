@@ -44,17 +44,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'email' => $user->email,
         'role' => $user->role
     ];
-   if($user->statut === "pending" ){
-    header('Location: public/accountPending.php');
-    exit;
-   }else if($user->role === 'user'){
-    header('Location: dashboard.php');
-    exit;
-   }else{
-    header('Location: ./public/dashboard.php');
-    exit;
-   }
     
+    if ($user->statut === "pending") {
+        header('Location: public/accountPending.php');
+        exit;
+    } else if ($user->role === 'user') {
+        header('Location: public/userDashboard.php');
+        exit;
+    } else {
+        header('Location: ./public/dashboard.php');
+        exit;
+    }
 }
-
-

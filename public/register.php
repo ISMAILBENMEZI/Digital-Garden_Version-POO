@@ -12,6 +12,7 @@
 <body>
 
     <?php
+    session_start();
     $page = 'register';
     require_once "../includes/header.php";
     ?>
@@ -22,7 +23,7 @@
                 Create Account
             </h1>
             <p class="text-center text-sm text-gray-500 mb-6">
-                Join us and start your journey 
+                Join us and start your journey
             </p>
 
             <form class="space-y-4" id="form" method="POST" action="../Controller/RegisterController.php">

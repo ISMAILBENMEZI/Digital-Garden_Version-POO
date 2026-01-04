@@ -11,6 +11,7 @@ class AuthController {
     $sql = "
         SELECT 
             u.id,
+            u.name,
             u.email,
             u.password,
             u.statut,
