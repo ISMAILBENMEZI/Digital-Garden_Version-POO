@@ -29,7 +29,7 @@ CREATE TABLE
         title VARCHAR(50),
         content VARCHAR(250),
         importance INT,
-        creation_date DATE,
+        creation_date DATETIME DEFAULT CURRENT_TIMESTAMP,
         theme_id INT,
         FOREIGN KEY (theme_id) REFERENCES Theme (id)
     );
@@ -47,4 +47,4 @@ VALUES
     ('admin');
 
 
-UPDATE user SET role_id = 2 , statut = 'active' where id = 2;
+UPDATE user SET role_id = 2 , statut = 'active' where id = 8;

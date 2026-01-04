@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-<?session_start()?>
+<? session_start() ?>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -57,9 +58,8 @@
             </form>
         </div>
     </main>
-
-
-    <?php require_once "../includes/footer.php" ?>
+    <?php include "../includes/footer.php" ?>
+    <script src="../public_assets/script.js"></script>
 </body>
 
 </html>

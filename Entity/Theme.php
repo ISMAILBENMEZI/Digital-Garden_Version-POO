@@ -1,14 +1,18 @@
 <?php
 
-class Theme{
+class Theme
+{
     private $id;
     private $title;
     private $color;
+    private $user_id;
 
-    public function __construct($title , $color)
+    public function __construct($title, $color, $user_id, $id)
     {
         $this->title = $title;
         $this->color = $color;
+        $this->user_id = $user_id;
+        $this->id = $id;
     }
 
 
@@ -17,35 +21,38 @@ class Theme{
         return $this->$propriete;
     }
 
+    public function setUserId($user_id)
+    {
+        if ($user_id > 0) {
+            $this->user_id = $user_id;
+        } else {
+            throw new InvalidArgumentException("Invalid ID");
+        }
+    }
+
     public function setId($id)
     {
-        if($id > 0)
-        {
+        if ($id > 0) {
             $this->id = $id;
-        }
-        else{
+        } else {
             throw new InvalidArgumentException("Invalid ID");
         }
     }
 
     public function setTitle($title)
     {
-        if(strlen($title) <= 20)
-        {
+        if (strlen($title) <= 20) {
             $this->title = $title;
-        }
-        else{
+        } else {
             throw new InvalidArgumentException("The title must not exceed 15 characters");
         }
     }
 
     public function setColor($color)
     {
-        if(preg_match('/^#[a-fA-F0-9]{6}$/', $color))
-        {
+        if (preg_match('/^#[a-fA-F0-9]{6}$/', $color)) {
             $this->color = $color;
-        }
-        else{
+        } else {
             throw new InvalidArgumentException("Invalid color");
         }
     }
