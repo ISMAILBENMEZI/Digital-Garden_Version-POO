@@ -7,6 +7,9 @@ require '../Controller/adminController.php';
     <meta charset="UTF-8">
     <title>Admin Dashboard</title>
     <style>
+        body {
+            height: 100Vh;
+        }
         table {
              border-collapse: collapse;
              width: 100%;

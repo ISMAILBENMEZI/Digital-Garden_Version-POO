@@ -14,4 +14,6 @@ class Garden extends User {
     public function setStatus($status){
         $this->status = $status;
     }
+    
+
 }

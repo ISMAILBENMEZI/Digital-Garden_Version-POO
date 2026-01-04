@@ -23,6 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $allowed = ['pending', 'active', 'blocked'];
     if (in_array($newStatut, $allowed)) {
         $userRepo->updateStatut($userId, $newStatut);
+        $_SESSION['message'] = 'update statut successfull';
     }
 
     header('Location: dashboard.php');

@@ -36,8 +36,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-
-
+   
+    
     $_SESSION['user'] = [
         'id' => $user->id,
         'name' => $user->name,
