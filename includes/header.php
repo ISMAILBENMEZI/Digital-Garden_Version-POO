@@ -58,7 +58,7 @@
                       Log out
                   </a>
               </div>
-          <?php elseif ($page === "login"): ?>
+          <?php elseif ($page === "login" || $page === "adminDashbord"): ?>
               <div class="flex space-x-4">
                   <a href="../index.php"
                       class="px-4 py-2 rounded-md border border-white hover:bg-white hover:text-green-600 transition">

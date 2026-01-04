@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="../public_assets/register.css">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-
 </head>
 
 <body>
@@ -16,6 +16,18 @@
     $page = 'register';
     require_once "../includes/header.php";
     ?>
+    <article class="php_messag">
+        <?php if (isset($_SESSION['success'])): ?>
+            <div class="php_good" id="flash_message" style="color: rgb(4, 255, 0);"><?= htmlspecialchars($_SESSION['success']) ?></div>
+            <?php unset($_SESSION['success']); ?>
+        <?php endif; ?>
+    </article>
+    <article class="php_messag">
+        <?php if (isset($_SESSION['success'])): ?>
+            <div class="php_bad" style="color: rgba(255, 0, 0, 1);"><?= htmlspecialchars($_SESSION['errors']) ?></div>
+            <?php unset($_SESSION['success']); ?>
+        <?php endif; ?>
+    </article>
     <main class="min-h-screen flex items-center justify-center bg-gray-50">
         <div class="w-full max-w-md p-8 bg-white border border-gray-200 rounded-2xl shadow-md">
 
@@ -81,6 +93,7 @@
         </div>
     </main>
     <?php require_once "../includes/footer.php" ?>
+    <script src="../public_assets/script.js"></script>
 </body>
 
 </html>

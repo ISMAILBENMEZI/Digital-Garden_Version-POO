@@ -27,7 +27,7 @@ CREATE TABLE
         title VARCHAR(50),
         content VARCHAR(250),
         importance INT,
-        creation_date DATE,
+        creation_date DATETIME DEFAULT CURRENT_TIMESTAMP,
         theme_id INT,
         FOREIGN KEY (theme_id) REFERENCES Theme (id)
     );
@@ -37,4 +37,21 @@ CREATE Table Roles(
     status ENUM('admin', 'user')
 );
 
+<<<<<<< HEAD
+CREATE Table
+    Roles (
+        id int PRIMARY KEY AUTO_INCREMENT,
+        status ENUM ('admin', 'user')
+    );
+
+insert into
+    roles (status)
+VALUES
+    ('user'),
+    ('admin');
+
+
+UPDATE user SET role_id = 2 , statut = 'active' where id = 8;
+=======
 insert into roles (status) VALUES ('user') ,('admin');
+>>>>>>> 1df51128622d107d2f0fdfd0b958db1558385bac

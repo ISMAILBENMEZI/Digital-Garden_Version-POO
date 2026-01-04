@@ -1,14 +1,16 @@
 <?php
 include './database/DataBaseConnection.php';
 
-class AuthController {
+class AuthController
+{
     private $conn;
     public function __construct($db)
     {
         $this->conn = $db->getConnection();
     }
-  public function Login ($email , $password){
-    $sql = "
+    public function Login($email, $password)
+    {
+        $sql = "
         SELECT 
             u.id,
             u.name,
@@ -22,27 +24,25 @@ class AuthController {
         LIMIT 1
         ";
 
-    $stmt = $this->conn->prepare($sql);
-    $stmt->execute([
-     ":email" => $email
-    ]);
-    
-  
-    $user = $stmt->fetch(PDO::FETCH_OBJ);
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([
+            ":email" => $email
+        ]);
 
-    if(!$user){
-        return false;
-    }
 
-    if(password_verify($password, $user->password)){
-       unset($user->password);
-       return $user;
-  
-        
-    }
+        $user = $stmt->fetch(PDO::FETCH_OBJ);
+
+        if (!$user) {
+            return false;
+        }
+
+        if (password_verify($password, $user->password)) {
+            unset($user->password);
+            return $user;
+        }
 
         throw new InvalidArgumentException("password inccorect");
-        
+
         return false;
-}
+    }
 }
