@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -27,7 +31,6 @@
             <?php unset($_SESSION['success']); ?>
         <?php endif; ?>
     </article>
-
     <main class="min-h-screen flex items-center justify-center bg-white">
         <div class="w-full max-w-md p-8 border border-green-200 rounded-2xl shadow-sm">
 
