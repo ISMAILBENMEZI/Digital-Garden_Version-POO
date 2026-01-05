@@ -11,20 +11,42 @@ require '../Controller/adminController.php';
             height: 100Vh;
         }
         table {
-             border-collapse: collapse;
-             width: 100%;
-             }
-        th, td {
-             border: 1px solid #ccc;
-             padding: 8px;
-             text-align: center;
-             }
-        th { background: #eee; }
-        form { display: inline; }
-        header {
-            position: relative;
-            top: 0;
-        }
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #ffffff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+th {
+    background-color: #f4f6f8;
+    color: #333;
+    padding: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 14px;
+}
+
+
+td {
+    padding: 12px;
+    border-top: 1px solid #eaeaea;
+    text-align: center;
+    color: #444;
+}
+
+
+tr:hover {
+    background-color: #f9f9f9;
+}
+
+
+form {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
         footer {
             position: relative;
             bottom: 0;
