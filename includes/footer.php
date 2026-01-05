@@ -66,7 +66,7 @@
                       </a>
                   </div>
               </div>
-          <?php elseif ($page === 'register'): ?>
+          <?php elseif ($page === 'register' || $page === 'themes' || $page === 'notes' || $page === 'userDashboard' || $page === "adminDashbord"): ?>
               <div>
                   <h3 class="text-lg font-semibold mb-4 border-l-4 border-green-500 pl-3">
                       Community
