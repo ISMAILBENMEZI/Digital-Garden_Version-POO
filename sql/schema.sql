@@ -51,7 +51,7 @@ VALUES
     ('admin');
 
 
-UPDATE user SET role_id = 2 , statut = 'active' where id = 8;
+UPDATE user SET role_id = 2 , statut = 'active' where id = 10;
 =======
 insert into roles (status) VALUES ('user') ,('admin');
 >>>>>>> 1df51128622d107d2f0fdfd0b958db1558385bac

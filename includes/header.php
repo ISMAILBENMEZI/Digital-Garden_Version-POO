@@ -9,7 +9,7 @@
       <nav class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
 
           <h2 class="text-2xl font-bold tracking-wide">
-              Digital Garden
+              🌱 Digital Garden 🌱
           </h2>
 
           <?php if ($page === 'index'): ?>
