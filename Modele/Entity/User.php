@@ -1,4 +1,7 @@
 <?php
+namespace User;
+use InvalidArgumentException;
+
 class User{
     private $id;
     private $userName;

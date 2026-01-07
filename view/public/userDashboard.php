@@ -1,5 +1,6 @@
 <?php
 session_start();
+$_SESSION['page'] = "userDashboard";
 include "../Controller/themeController.php";
 $themes = affichaeTheme($conn);
 ?>
@@ -17,7 +18,6 @@ $themes = affichaeTheme($conn);
 
 <body>
     <?php
-    $page = "userDashboard";
     require_once "../includes/header.php";
     ?>
     <article class="php_messag" id="good">

@@ -1,4 +1,6 @@
 <?php
+session_start();
+$_SESSION['page'] = "adminDashbord";
 require '../Controller/adminController.php';
 ?>
 <!DOCTYPE html>
@@ -11,9 +13,7 @@ require '../Controller/adminController.php';
 </head>
 
 <body>
-
     <?php
-    $page = "adminDashbord";
     require_once "../includes/header.php";
     ?>
     <div class="container">
@@ -24,10 +24,10 @@ require '../Controller/adminController.php';
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Status</th>
-                        <th>Change Status</th>
+                        <th>NAME</th>
+                        <th>EMAIL</th>
+                        <th>STATUS</th>
+                        <th>CHANGE STATUS</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -40,8 +40,8 @@ require '../Controller/adminController.php';
                             <?= $user->statut === 'active' ? 'statut-active' : '' ?>
                             <?= $user->statut === 'pending' ? 'statut-pending' : '' ?>
                             <?= $user->statut === 'blocked' ? 'statut-blocked' : '' ?>
-                        ">
-                                <?= ucfirst($user->statut) ?>
+                            ">
+                            <?= ucfirst($user->statut) ?>
                             </td>
                             <td>
                                 <form method="POST">
@@ -59,7 +59,22 @@ require '../Controller/adminController.php';
                 </tbody>
             </table>
         </div>
+        <div class="card">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>THEME</th>
+                        <th>REPORTER</th>
+                        <th>REPORTED</th>
+                        <th>REPORT TYPE</th>
+                        <th>CHANGE STATUS</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
     </div>
+    
     <?php include "../includes/footer.php" ?>
 </body>
 

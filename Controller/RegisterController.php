@@ -5,7 +5,6 @@ require_once "../Repository/UserRepository.php";
 require_once "../database/DataBaseConnection.php";
 
 if (isset($_POST['createAccount'])) {
-
     try {
         $userName = trim($_POST['userName']);
         $email = trim($_POST['email']);
@@ -28,8 +27,8 @@ if (isset($_POST['createAccount'])) {
                 email: $email
             );
 
-            $conn = new DataBaseConnection();
-            $repo = new UserRepository($conn);
+        
+            $repo = new UserRepository();
 
             $repo->addUser($user);
             $_SESSION['success'] = "Account created successfully";

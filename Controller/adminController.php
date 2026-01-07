@@ -10,10 +10,7 @@ if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'admin') {
     exit;
 }
 
-$db = new DataBaseConnection();
-
-
-$userRepo = new UserRepository($db);
+$userRepo = new UserRepository();
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
