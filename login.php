@@ -1,8 +1,9 @@
 <?php
 session_start();
-
-require_once './Controller/AuthController.php';
 require_once './database/DataBaseConnection.php';
+require './Repository/UserRepository.php';
+require_once './Controller/AuthController.php';
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -25,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    $db = new DataBaseConnection();
+    $db = DataBaseConnection::getConnection();
     $auth = new AuthController($db);
 
     $user = $auth->login($email, $password);

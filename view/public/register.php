@@ -38,7 +38,7 @@
                 Join us and start your journey
             </p>
 
-            <form class="space-y-4" id="form" method="POST" action="../Controller/RegisterController.php">
+            <form class="space-y-4" id="form" method="POST" action="../../route.php">
 
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">

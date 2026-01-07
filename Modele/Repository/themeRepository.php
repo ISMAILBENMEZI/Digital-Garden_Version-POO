@@ -5,9 +5,9 @@ class themeRepository
 
     private $conn;
 
-    public function __construct(DataBaseConnection $db)
+    public function __construct()
     {
-        $this->conn = $db->getConnection();
+        $this->conn = DataBaseConnection::getConnection();
     }
 
     public function addOrUpdateTheme(Theme $theme)
@@ -24,7 +24,7 @@ class themeRepository
 
             unset($_SESSION['updateId'], $_SESSION['updateTitle'], $_SESSION['updateColor'], $_SESSION['Update']);
             $_SESSION['success'] = "Theme updated successfully";
-            header("location:../public/userDashboard");
+            header("location: ../public/userDashboard.php");
             exit();
         }
 
@@ -39,7 +39,7 @@ class themeRepository
         ]);
 
         $_SESSION['success'] = 'Theme created successfully';
-        header("location:../public/userDashboard");
+        header("location: ../public/userDashboard.php");
         exit();
     }
 }

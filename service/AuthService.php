@@ -1,16 +1,22 @@
 <?php
-session_start();
-require_once "../Entity/User.php";
-require_once "../Repository/UserRepository.php";
-require_once "../database/DataBaseConnection.php";
 
-if (isset($_POST['createAccount'])) {
-    try {
-        $userName = trim($_POST['userName']);
-        $email = trim($_POST['email']);
-        $password = trim($_POST['password']);
-        $confirmpassword = trim($_POST['confirmPassword']);
+class AuthService {
+    private UserRepository $userRepo;
 
+    public function __construct(UserRepository $userRepo) {
+        $this->userRepo = $userRepo;
+    }
+
+    public function login(string $email, string $password) {
+        $user = $this->userRepo->findByEmail($email);
+        if (!$user || !password_verify($password, $user['password'])) {
+            throw new Exception("Email or password incorrect");
+        }
+        $_SESSION['user'] = $user;
+    }
+    public function register($userName, $email, $password ,$confirmpassword){
+      try {
+        
         if (empty($userName) || empty($email) || empty($password) || empty($confirmpassword))
             throw new InvalidArgumentException("Please fill in all required fields.");
 
@@ -33,9 +39,6 @@ if (isset($_POST['createAccount'])) {
             $repo->addUser($user);
             $_SESSION['success'] = "Account created successfully";
             $_SESSION['userName'] = $userName;
-
-            header("location:../public/accountPending.php");
-            exit();
         } else {
             throw new InvalidArgumentException("Passwords do not match. Please try again.");
         }
@@ -44,3 +47,4 @@ if (isset($_POST['createAccount'])) {
         echo $error;
     }
 }
+    }

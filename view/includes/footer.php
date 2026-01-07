@@ -73,22 +73,22 @@
                   </h3>
                   <div class="flex flex-wrap gap-3">
                       <a href="#">
-                          <img src="../IMG/letter-f_8370671.png"
+                          <img src="view/public_assests/IMG/letter-f_8370671.png"
                               class="w-12 h-12 rounded-full transition transform hover:-translate-y-1 hover:shadow-[0_0_10px_#22c55e]"
                               alt="Facebook">
                       </a>
                       <a href="#">
-                          <img src="../IMG/letter-t_8370646 (1).png"
+                          <img src="view/public_assests/IMG/letter-t_8370646 (1).png"
                               class="w-12 h-12 rounded-full transition transform hover:-translate-y-1 hover:shadow-[0_0_10px_#22c55e]"
                               alt="Instagram">
                       </a>
                       <a href="#">
-                          <img src="../IMG/whatsapp_3698386.png"
+                          <img src="view/public_assests/IMG/whatsapp_3698386.png"
                               class="w-12 h-12 rounded-full transition transform hover:-translate-y-1 hover:shadow-[0_0_10px_#22c55e]"
                               alt="X">
                       </a>
                       <a href="#">
-                          <img src="../IMG/photo-camera_3324888.png"
+                          <img src="view/public_assests/IMG/photo-camera_3324888.png"
                               class="w-12 h-12 rounded-full transition transform hover:-translate-y-1 hover:shadow-[0_0_10px_#22c55e]"
                               alt="YouTube">
                       </a>
