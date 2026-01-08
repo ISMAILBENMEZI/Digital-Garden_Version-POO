@@ -1,13 +1,15 @@
 <?php
-
+namespace Modele\Repository;
+use Database\DataBaseConnection;
+use Modele\Entity\note;
 
 class noteRepository
 {
     private $conn;
 
-    public function __construct(DataBaseConnection $db)
+    public function __construct()
     {
-        $this->conn = $db->getConnection();
+        $this->conn = DataBaseConnection::getConnection();
     }
 
     public function addOrUpdateNote(Note $note)
@@ -27,7 +29,7 @@ class noteRepository
             unset($_SESSION['updateNoteId'], $_SESSION['updateNoteTitle'],  $_SESSION['updateNoteContent'], $_SESSION['theme_id']);
             $_SESSION['success'] = "Note updated successfully";
             unset($_SESSION['notes']);
-            header("location:../public/userDashboard");
+            header("location:../public/userDashboard.php");
             exit();
         }
 
@@ -44,7 +46,7 @@ class noteRepository
 
         $_SESSION['success'] = 'Note created successfully';
         unset($_SESSION['notes']);
-        header("location:../public/userDashboard");
+        header("location:../public/userDashboard.php");
         exit();
     }
 }

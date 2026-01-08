@@ -1,23 +1,59 @@
 <?php
+namespace Modele\Repository;
+
+use Database\DataBaseConnection;
+use PDO;
+use InvalidArgumentException;
+use Modele\Entity\User;
+use PDOException;
+use RuntimeException;
 
 class UserRepository
 {
     private $conn;
 
-    public function __construct(DataBaseConnection $db)
+    public function __construct()
     {
-        $this->conn = $db->getConnection();
+        $this->conn = DataBaseConnection::getConnection();
     }
-    
+
+    public function findByEmail($email){
+      $sql = "
+        SELECT 
+            u.id,
+            u.name,
+            u.email,
+            u.password,
+            u.statut,
+            r.status AS role
+        FROM user u
+        JOIN roles r ON u.role_id = r.id
+        WHERE u.email = :email
+        LIMIT 1
+        ";
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([
+            ":email" => $email
+        ]);
+
+
+        $user = $stmt->fetch(PDO::FETCH_OBJ);
+        if (!$user) {
+            return false;
+        }
+         return $user;
+
+        }
+       
+  
+
     public function addUser(User $user)
     {
         try {
-            $query = "SELECT * FROM user where email = :email";
-            $stmt = $this->conn->prepare($query);
-            $stmt->execute([":email" => $user->email]);
-            $isUserAvailable = $stmt->fetchColumn();
+            $isUserAvailable = $this->findByEmail($user->email);
 
-            if ($isUserAvailable == 0) {
+            if (!$isUserAvailable) {
                 $query = "INSERT INTO user(name , password, email,statut) VALUES(:name , :password , :email, :statut)";
                 $stmt = $this->conn->prepare($query);
                 $stmt->execute([

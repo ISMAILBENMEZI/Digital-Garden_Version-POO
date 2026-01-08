@@ -1,4 +1,7 @@
 <?php
+namespace Modele\Entity;
+use InvalidArgumentException;
+
 class User{
     private $id;
     private $userName;

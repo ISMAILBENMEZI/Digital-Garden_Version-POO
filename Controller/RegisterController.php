@@ -1,11 +1,9 @@
 <?php
 session_start();
-require_once "../Entity/User.php";
-require_once "../Repository/UserRepository.php";
-require_once "../database/DataBaseConnection.php";
+use Modele\Repository\UserRepository;
+use Modele\Entity\User;
 
 if (isset($_POST['createAccount'])) {
-
     try {
         $userName = trim($_POST['userName']);
         $email = trim($_POST['email']);
@@ -28,8 +26,8 @@ if (isset($_POST['createAccount'])) {
                 email: $email
             );
 
-            $conn = new DataBaseConnection();
-            $repo = new UserRepository($conn);
+        
+            $repo = new UserRepository();
 
             $repo->addUser($user);
             $_SESSION['success'] = "Account created successfully";

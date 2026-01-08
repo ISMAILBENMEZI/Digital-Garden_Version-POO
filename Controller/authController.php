@@ -1,48 +1,50 @@
 <?php
-include './database/DataBaseConnection.php';
 
+namespace Controller;
+use service\AuthService;
+use Exception;
 class AuthController
 {
-    private $conn;
-    public function __construct($db)
+    private AuthService $authService;
+
+    public function __construct(AuthService $authService)
     {
-        $this->conn = $db->getConnection();
+        $this->authService = $authService;
     }
-    public function Login($email, $password)
+
+    public function login()
     {
-        $sql = "
-        SELECT 
-            u.id,
-            u.name,
-            u.email,
-            u.password,
-            u.statut,
-            r.status AS role
-        FROM user u
-        JOIN roles r ON u.role_id = r.id
-        WHERE u.email = :email
-        LIMIT 1
-        ";
-
-        $stmt = $this->conn->prepare($sql);
-        $stmt->execute([
-            ":email" => $email
-        ]);
-
-
-        $user = $stmt->fetch(PDO::FETCH_OBJ);
-
-        if (!$user) {
-            return false;
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            try {
+                $this->authService->login($_POST['email'], $_POST['password']);
+                header('Location: ../view/public/dashboard.php');
+                exit;
+            } catch (Exception $e) {
+                $errorMessage = $e->getMessage();
+            }
         }
 
-        if (password_verify($password, $user->password)) {
-            unset($user->password);
-            return $user;
+        require '../includes/header.php';
+        require '../views/auth/login.php';
+        require '../includes/footer.php';
+    }
+
+    public function register()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST'&&isset($_POST['createAccount'])) {
+
+            $userName = trim($_POST['userName'] ?? '');
+            $email = trim($_POST['email'] ?? '');
+            $password = $_POST['password'] ?? '';
+            $confirmpassword = $_POST['confirmPassword']?? '';
+
+            try {
+                $this->authService->register($userName, $email, $password, $confirmpassword);
+                header('Location: /Digital-Garden_Version-POO/view/public/accountPending.php');
+                exit;
+            } catch (Exception $e) {
+                $errorMessage = $e->getMessage();
+            }
         }
-
-        throw new InvalidArgumentException("password inccorect");
-
-        return false;
     }
 }

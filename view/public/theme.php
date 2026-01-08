@@ -1,6 +1,7 @@
+<?php session_start();
+$_SESSION['page'] = "themes"; ?>
 <!DOCTYPE html>
 <html lang="en">
-<? session_start() ?>
 
 <head>
     <meta charset="UTF-8">
@@ -13,7 +14,7 @@
 
 <body>
     <?php
-    $page = "themes";
+    
     require_once "../includes/header.php";
     ?>
     <main class="min-h-screen flex items-center justify-center bg-gray-50">

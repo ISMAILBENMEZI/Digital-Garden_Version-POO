@@ -1,13 +1,13 @@
 <?php
-include "../database/DataBaseConnection.php";
-require_once "../Entity/Theme.php";
-require_once "../Repository/themeRepository.php";
+use Database\DataBaseConnection;
+use Modele\Entity\Theme;
+use Modele\Repository\themeRepository;
 
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
-$db = new DataBaseConnection();
-$conn = $db->getConnection();
+
+$conn = DataBaseConnection::getConnection();
 
 if (isset($_POST['addTheme']) || isset($_POST['updateTheme'])) {
     $id = $_POST['id'] ?? null;
@@ -27,8 +27,8 @@ if (isset($_POST['addTheme']) || isset($_POST['updateTheme'])) {
         user_id: $user_id,
         id:$id
     );
-    $conn = new DataBaseConnection;
-    $repo = new themeRepository($conn);
+   
+    $repo = new themeRepository();
     $repo->addOrUpdateTheme($theme);
 }
 
@@ -77,6 +77,6 @@ function deleteThemeById($conn)
     $stmt->execute([":id" => $_POST['id']]);
 
     $_SESSION['success'] = "Theme deleted successfully";
-    header("location:../public/userDashboard");
+    header("location: ../public/userDashboard.php");
     exit();
 }

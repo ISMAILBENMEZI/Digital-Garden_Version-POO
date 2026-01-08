@@ -1,3 +1,7 @@
+<?php
+session_start();
+$_SESSION['page'] = 'accountPending';
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,8 +13,6 @@
 
 <body>
     <?php
-    session_start();
-    $page = 'accountPending';
     include '../includes/header.php';
     ?>
     <main class="min-h-screen flex items-center justify-center bg-gray-50">
@@ -51,6 +53,7 @@
 
         </div>
     </main>
+    <?php include "../includes/footer.php" ?>
 </body>
 
 </html>

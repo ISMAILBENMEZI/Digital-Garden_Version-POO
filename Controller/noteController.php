@@ -1,13 +1,13 @@
 <?php
-include "../database/DataBaseConnection.php";
-require_once "../Entity/Note.php";
-require_once "../Repository/noteRepository.php";
+use Database\DataBaseConnection;
+use Modele\Entity\note;
+use Modele\Repository\noteRepository;
 
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
-$db = new DataBaseConnection();
-$conn = $db->getConnection();
+
+$conn = DataBaseConnection::getConnection();
 
 
 if (isset($_POST['addNote']) || isset($_POST['UpdateNote'])) {
@@ -31,8 +31,8 @@ if (isset($_POST['addNote']) || isset($_POST['UpdateNote'])) {
         id: $id
     );
 
-    $conn = new DataBaseConnection();
-    $repo = new noteRepository($conn);
+
+    $repo = new noteRepository();
 
     $repo->addOrUpdateNote($note);
 }
@@ -94,7 +94,7 @@ function deleteNote($note_id, $conn)
     $stmt->execute([":id" => $note_id]);
     $_SESSION['success'] = "Note deleted successfully";
     unset($_SESSION['notes']);
-    header("location:../public/userDashboard");
+    header("location: ../public/userDashboard.php");
     exit();
 }
 
