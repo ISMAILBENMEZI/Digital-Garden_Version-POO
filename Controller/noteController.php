@@ -1,7 +1,7 @@
 <?php
-include "../database/DataBaseConnection.php";
-require_once "../Entity/Note.php";
-require_once "../Repository/noteRepository.php";
+use Database\DataBaseConnection;
+use Modele\Entity\note;
+use Modele\Repository\noteRepository;
 
 if (session_status() == PHP_SESSION_NONE) {
     session_start();

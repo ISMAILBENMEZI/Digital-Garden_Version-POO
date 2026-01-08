@@ -1,7 +1,7 @@
 <?php
-include "../database/DataBaseConnection.php";
-require_once "../Entity/Theme.php";
-require_once "../Repository/themeRepository.php";
+use Database\DataBaseConnection;
+use Modele\Entity\Theme;
+use Modele\Repository\themeRepository;
 
 if (session_status() == PHP_SESSION_NONE) {
     session_start();

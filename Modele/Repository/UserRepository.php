@@ -1,10 +1,10 @@
 <?php
-namespace UserRepository;
+namespace Modele\Repository;
 
-use Modele\Entity\User;
 use Database\DataBaseConnection;
 use PDO;
 use InvalidArgumentException;
+use Modele\Entity\User;
 use PDOException;
 use RuntimeException;
 

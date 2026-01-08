@@ -1,6 +1,8 @@
 <?php
-use service\AuthService;
 
+namespace Controller;
+use service\AuthService;
+use Exception;
 class AuthController
 {
     private AuthService $authService;
@@ -38,7 +40,7 @@ class AuthController
 
             try {
                 $this->authService->register($userName, $email, $password, $confirmpassword);
-                header('Location: ../view/public/accountPending.php');
+                header('Location: /Digital-Garden_Version-POO/view/public/accountPending.php');
                 exit;
             } catch (Exception $e) {
                 $errorMessage = $e->getMessage();

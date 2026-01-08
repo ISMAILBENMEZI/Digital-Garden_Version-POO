@@ -1,5 +1,6 @@
 <?php
 
+namespace service;
 use Modele\Entity\User; 
 use Modele\Repository\UserRepository;
 use Exception;
@@ -40,9 +41,7 @@ class AuthService {
              $passwordH,
              $email
         );
-        
-        $user->setStatut('pending'); 
-
+    
         $this->userRepo->addUser($user);
         
         $_SESSION['success'] = "Account created successfully";

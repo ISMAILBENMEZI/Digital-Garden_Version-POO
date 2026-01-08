@@ -1,5 +1,7 @@
 <?php
-include 'User.php';
+
+namespace Modele\Entity;
+use Modele\Entity\User;
 
 class Admin extends User {
    public function getRole()

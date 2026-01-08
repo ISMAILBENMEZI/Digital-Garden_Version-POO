@@ -1,5 +1,7 @@
 <?php
-
+namespace Modele\Repository;
+use Database\DataBaseConnection;
+use Modele\Entity\note;
 
 class noteRepository
 {

@@ -1,8 +1,7 @@
 <?php
 session_start();
 
-require_once '../database/DataBaseConnection.php';
-require_once '../Repository/UserRepository.php';
+use Modele\Repository\UserRepository;
 
 
 if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'admin') {

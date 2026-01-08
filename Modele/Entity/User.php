@@ -1,5 +1,5 @@
 <?php
-namespace User;
+namespace Modele\Entity;
 use InvalidArgumentException;
 
 class User{
