@@ -1,4 +1,5 @@
 <?php
+
 namespace Modele\Repository;
 
 use Database\DataBaseConnection;
@@ -17,8 +18,9 @@ class UserRepository
         $this->conn = DataBaseConnection::getConnection();
     }
 
-    public function findByEmail($email){
-      $sql = "
+    public function findByEmail(User $user)
+    {
+        $sql = "
         SELECT 
             u.id,
             u.name,
@@ -34,7 +36,7 @@ class UserRepository
 
         $stmt = $this->conn->prepare($sql);
         $stmt->execute([
-            ":email" => $email
+            ":email" => $user->getEmail()
         ]);
 
 
@@ -42,37 +44,31 @@ class UserRepository
         if (!$user) {
             return false;
         }
-         return $user;
+        return $user;
+    }
 
-        }
-       
-  
 
     public function addUser(User $user)
     {
         try {
-            $isUserAvailable = $this->findByEmail($user->email);
+            $query = "INSERT INTO user(name , password, email,statut) VALUES(:name , :password , :email, :statut)";
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute([
+                ":name" => $user->userName,
+                ":password" => $user->password,
+                ":email" => $user->email,
+                ":statut" => $user->statut
+            ]);
 
-            if (!$isUserAvailable) {
-                $query = "INSERT INTO user(name , password, email,statut) VALUES(:name , :password , :email, :statut)";
-                $stmt = $this->conn->prepare($query);
-                $stmt->execute([
-                    ":name" => $user->userName,
-                    ":password" => $user->password,
-                    ":email" => $user->email,
-                    ":statut" => $user->statut
-                ]);
-
-                $userId = $this->conn->lastInsertId();
-                $user->setId($userId);
-                
-            } else {
-                throw new InvalidArgumentException("This user already exists");
-            }
+            $userId = $this->conn->lastInsertId();
+            $user->setId($userId);
+            return $user;
+            
         } catch (PDOException $error) {
             throw new RuntimeException("Database error. Please try again later.");
         }
     }
+
     public function getAllUsers()
     {
         $sql = "

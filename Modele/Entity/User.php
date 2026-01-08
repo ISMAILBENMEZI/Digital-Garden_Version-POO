@@ -23,6 +23,11 @@ class User{
         return $this->$property;
     }
 
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
 
     public function setId($id){
         if($id > 0){
