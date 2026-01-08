@@ -1,7 +1,7 @@
 <?php
 
 class AuthService {
-    private UserRepository $userRepo;
+    public UserRepository $userRepo;
 
     public function __construct(UserRepository $userRepo) {
         $this->userRepo = $userRepo;
@@ -33,12 +33,10 @@ class AuthService {
                 email: $email
             );
 
-        
-            $repo = new UserRepository();
-
-            $repo->addUser($user);
+            $this->userRepo->addUser($user);
             $_SESSION['success'] = "Account created successfully";
             $_SESSION['userName'] = $userName;
+            
         } else {
             throw new InvalidArgumentException("Passwords do not match. Please try again.");
         }

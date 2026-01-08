@@ -32,10 +32,10 @@ class AuthController {
 
         try {
             $this->authService->register($userName, $email, $password ,$confirmpassword);
-            header('Location: ../view/public/accountPending.php');
+           header('Location: ../view/public/accountPending.php'); 
             exit;
         } catch (Exception $e) {
-            $errorMessage = $e->getMessage();
+            echo $e->getMessage();
         }
     
 
