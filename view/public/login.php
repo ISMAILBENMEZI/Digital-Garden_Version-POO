@@ -1,5 +1,8 @@
 <?php
 session_start();
+$_SESSION['page'] = 'login';
+$errors = $_SESSION['errors'] ?? [];
+unset($_SESSION['errors']);
 ?>
 
 <!DOCTYPE html>
@@ -14,10 +17,7 @@ session_start();
 
 <body>
     <?php
-    $page = 'login';
     require_once "../includes/header.php";
-    $errors = $_SESSION['errors'] ?? [];
-    unset($_SESSION['errors']);
     ?>
     <article class="php_messag">
         <?php if (isset($_SESSION['success'])): ?>

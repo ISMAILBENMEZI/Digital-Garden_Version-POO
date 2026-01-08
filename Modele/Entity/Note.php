@@ -1,5 +1,6 @@
 <?php
-
+namespace Modele\Entity;
+use InvalidArgumentException;
 
 class note
 {

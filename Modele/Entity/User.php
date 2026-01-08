@@ -1,4 +1,7 @@
 <?php
+namespace Modele\Entity;
+use InvalidArgumentException;
+
 class User{
     private $id;
     private $userName;
@@ -18,6 +21,9 @@ class User{
 
     public function __get($property){
         return $this->$property;
+    }
+    public function getPassword(){
+        return $this->password;
     }
     
     public function __set($property , $value){

@@ -2,6 +2,8 @@
 if (isset($_GET['theme_id'])) {
     $theme_id = $_GET['theme_id'];
 }
+session_start();
+$_SESSION['page'] = 'notes';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,7 +19,6 @@ if (isset($_GET['theme_id'])) {
 
 <body>
     <?php
-    $page = 'notes';
     require_once "../includes/header.php";
     ?>
     <article class="php_messag">

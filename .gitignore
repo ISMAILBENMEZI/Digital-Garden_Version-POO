@@ -1,5 +1,19 @@
-# Database config (contains credentials)
-config/database.php
+/vendor/
 
-# Node dependencies
-node_modules/
+.vscode/
+.idea/
+*.suo
+*.ntvs
+*.njsproj
+*.sln
+*.swp
+
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+.env
+config.php
+
+*.log
+error_log

@@ -1,3 +1,5 @@
+<?php session_start();
+$_SESSION['page'] = 'register'; ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,8 +14,6 @@
 <body>
 
     <?php
-    session_start();
-    $page = 'register';
     require_once "../includes/header.php";
     ?>
     <article class="php_messag">
@@ -38,8 +38,7 @@
                 Join us and start your journey
             </p>
 
-            <form class="space-y-4" id="form" method="POST" action="../../route.php">
-
+            <form class="space-y-4" id="form" method="POST" action="/Digital-Garden_Version-POO/register">
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">
                         Name

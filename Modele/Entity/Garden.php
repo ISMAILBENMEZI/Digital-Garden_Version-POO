@@ -1,5 +1,7 @@
 <?php
 
+namespace Modele\Entity;
+
 include 'User.php';
 
 class Garden extends User {

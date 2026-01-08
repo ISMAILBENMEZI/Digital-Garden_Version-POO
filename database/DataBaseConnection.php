@@ -1,5 +1,8 @@
 <?php
 
+namespace Database;
+use PDO;
+
 class DataBaseConnection{
    private static $conn;
    private static $host = "localhost";

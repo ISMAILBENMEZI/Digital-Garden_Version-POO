@@ -1,5 +1,8 @@
 <?php
 
+namespace Modele\Entity;
+use InvalidArgumentException;
+
 class Theme
 {
     private $id;
