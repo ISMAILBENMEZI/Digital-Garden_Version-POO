@@ -15,6 +15,18 @@ $_SESSION['page'] = 'accountPending';
     <?php
     include '../includes/header.php';
     ?>
+    <article class="php_messag">
+        <?php if (isset($_SESSION['success'])): ?>
+            <div class="php_good" id="flash_message" style="color: rgb(4, 255, 0);"><?= htmlspecialchars($_SESSION['success']) ?></div>
+            <?php unset($_SESSION['success']); ?>
+        <?php endif; ?>
+    </article>
+    <article class="php_messag">
+        <?php if (isset($_SESSION['success'])): ?>
+            <div class="php_bad" style="color: rgba(255, 0, 0, 1);"><?= htmlspecialchars($_SESSION['errors']) ?></div>
+            <?php unset($_SESSION['success']); ?>
+        <?php endif; ?>
+    </article>
     <main class="min-h-screen flex items-center justify-center bg-gray-50">
         <div class="max-w-md w-full bg-white p-8 rounded-2xl shadow-md text-center">
 

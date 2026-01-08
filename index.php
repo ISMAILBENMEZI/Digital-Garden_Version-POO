@@ -22,7 +22,6 @@ class Router {
     public function run()
     {
        $routes = $this->getRoutes();
-        var_dump($routes);
         $url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
         if (array_key_exists($url, $routes)) {
             $callBack = $routes[$url];
@@ -35,17 +34,10 @@ class Router {
 }
 
 
-
-
 $router = new Router();
     
-
-    
-
 $router->route('/Digital-Garden_Version-POO/register', function () {
-    $userRepo = new UserRepository();
-    $service = new AuthService($userRepo);
-    $auth = new AuthController($service);
+    $auth = new AuthController();
     $auth->register();
 });
 

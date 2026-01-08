@@ -1,47 +1,78 @@
 <?php
 
 namespace Controller;
+
 use service\AuthService;
 use Exception;
+use InvalidArgumentException;
+use Modele\Entity\User;
+
 class AuthController
 {
     private AuthService $authService;
 
-    public function __construct(AuthService $authService)
+    public function __construct()
     {
-        $this->authService = $authService;
+        $this->authService = new AuthService();
     }
 
-    public function login()
-    {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            try {
-                $this->authService->login($_POST['email'], $_POST['password']);
-                header('Location: ../view/public/dashboard.php');
-                exit;
-            } catch (Exception $e) {
-                $errorMessage = $e->getMessage();
-            }
-        }
+    // public function login()
+    // {
+    //     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    //         try {
+    //             $this->authService->login($_POST['email'], $_POST['password']);
+    //             header('Location: ../view/public/dashboard.php');
+    //             exit;
+    //         } catch (Exception $e) {
+    //             $errorMessage = $e->getMessage();
+    //         }
+    //     }
 
-        require '../includes/header.php';
-        require '../views/auth/login.php';
-        require '../includes/footer.php';
-    }
+    //     require '../includes/header.php';
+    //     require '../views/auth/login.php';
+    //     require '../includes/footer.php';
+    // }
 
     public function register()
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST'&&isset($_POST['createAccount'])) {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['createAccount'])) {
 
             $userName = trim($_POST['userName'] ?? '');
             $email = trim($_POST['email'] ?? '');
             $password = $_POST['password'] ?? '';
-            $confirmpassword = $_POST['confirmPassword']?? '';
+            $confirmpassword = $_POST['confirmPassword'] ?? '';
+
+            if (empty($userName) || empty($email) || empty($password) || empty($confirmpassword))
+                throw new InvalidArgumentException("Please fill in all required fields.");
+
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL))
+                throw new InvalidArgumentException("Invalid email format");
+
+            if ($password !== $confirmpassword) {
+                throw new InvalidArgumentException("Passwords do not match.");
+            }
+
+            if (strlen($password) < 8) {
+                throw new InvalidArgumentException("Password must be at least 8 characters long.");
+            }
+
+            $password = password_hash($password, PASSWORD_DEFAULT);
+
+            $user = new User(
+                $userName,
+                $password,
+                $email
+            );
 
             try {
-                $this->authService->register($userName, $email, $password, $confirmpassword);
-                header('Location: /Digital-Garden_Version-POO/view/public/accountPending.php');
-                exit;
+                $CreatedUser =  $this->authService->register($user);
+                if ($CreatedUser) {
+                    $_SESSION['user'] = $CreatedUser;
+                    $_SESSION['success'] = "Account created successfully";
+                    header('Location: /Digital-Garden_Version-POO/view/public/accountPending.php');
+                    exit;
+                }
+               $_SESSION['error'] = 'This user already exists';
             } catch (Exception $e) {
                 $errorMessage = $e->getMessage();
             }
