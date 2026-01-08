@@ -1,27 +1,28 @@
 <?php
+session_start();
 require_once __DIR__ . '/vendor/autoload.php';
-use Modele\Repository\UserRepository;
-use service\AuthService;
+
 use Controller\AuthController;
+use Controller\themeController;
 
-
-class Router {
+class Router
+{
     private $routes = [];
 
     public function route($path, $callBack)
     {
-        array_push($this->routes,$this->routes[$path] = $callBack);
+        array_push($this->routes, $this->routes[$path] = $callBack);
     }
 
     public function getRoutes()
     {
-       return $this->routes;
+        return $this->routes;
     }
 
 
     public function run()
     {
-       $routes = $this->getRoutes();
+        $routes = $this->getRoutes();
         $url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
         if (array_key_exists($url, $routes)) {
             $callBack = $routes[$url];
@@ -35,7 +36,7 @@ class Router {
 
 
 $router = new Router();
-    
+
 $router->route('/Digital-Garden_Version-POO/register', function () {
     $auth = new AuthController();
     $auth->register();
@@ -47,12 +48,31 @@ $router->route('/Digital-Garden_Version-POO/', function () {
     exit;
 });
 
-// $router->route('/view/public/accountPending/',function(){
-//     header("location: ");
-//     exit();
-// });
+$router->route('/Digital-Garden_Version-POO/addtheme', function () {
+    $authTheme = new themeController();
+    $authTheme->addOrUpdateTheme();
+    header("Location: /Digital-Garden_Version-POO/UserDashboard");
+    exit;
+});
 
+$router->route('/Digital-Garden_Version-POO/theme/modifyTheme', function () {
+    $authTheme = new themeController();
+    $authTheme->findThemeByid($_POST['id']);
+    header('Location: view/public/theme.php');
+    exit;
+});
 
+$router->route('/Digital-Garden_Version-POO/theme/deleteTheme', function () {
+    $authTheme = new themeController();
+    $authTheme->deleteThemeById();
+    header("Location: /Digital-Garden_Version-POO/UserDashboard");
+    exit;
+});
+
+$router->route('/Digital-Garden_Version-POO/UserDashboard', function () {
+    $themeController = new themeController();
+    $themes = $themeController->affichaeTheme(); 
+});
 
 
 $router->run();

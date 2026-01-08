@@ -1,8 +1,6 @@
 <?php
 session_start();
 $_SESSION['page'] = "userDashboard";
-include "../Controller/themeController.php";
-$themes = affichaeTheme($conn);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,18 +18,21 @@ $themes = affichaeTheme($conn);
     <?php
     require_once "../includes/header.php";
     ?>
-    <article class="php_messag" id="good">
+
+    <article class="php_messag">
         <?php if (isset($_SESSION['success'])): ?>
-            <div class="php_good" id="flash_message" style="color: rgb(4, 255, 0);"><?= htmlspecialchars($_SESSION['success']) ?></div>
+            <div class="php_good" id="good" style="color: rgb(4, 255, 0);"><?= htmlspecialchars($_SESSION['success']) ?></div>
             <?php unset($_SESSION['success']); ?>
         <?php endif; ?>
     </article>
-    <article class="php_messag" id="bad">
-        <?php if (isset($_SESSION['success'])): ?>
-            <div class="php_bad" style="color: rgba(255, 0, 0, 1);"><?= htmlspecialchars($_SESSION['errors']) ?></div>
-            <?php unset($_SESSION['success']); ?>
+
+    <article class="php_messag">
+        <?php if (isset($_SESSION['error'])): ?>
+            <div class="php_bad" id="bad" style="color: rgba(255, 0, 0, 1);"><?= htmlspecialchars($_SESSION['error']) ?></div>
+            <?php unset($_SESSION['error']); ?>
         <?php endif; ?>
     </article>
+
     <main class="dash_main px-6 py-6" id="userMain">
         <aside class="My_themes">
             <h2>
@@ -57,12 +58,12 @@ $themes = affichaeTheme($conn);
                             </form>
                         </div>
                         <div class="buttons">
-                            <form method="post" action="../Controller/themeController.php">
+                            <form method="post" action="/Digital-Garden_Version-POO/theme/modifyTheme">
                                 <input name="id" value="<?= htmlspecialchars($theme['id']) ?>" type="hidden" />
                                 <input value="modify" name="modify" type="submit" />
                             </form>
 
-                            <form method="post" action="../Controller/themeController.php">
+                            <form method="post" action="/Digital-Garden_Version-POO/theme/deleteTheme">
                                 <input name="id" value="<?= htmlspecialchars($theme['id']) ?>" type="hidden" />
                                 <input value="delete" name="delete" type="submit" onclick="return confirm('Are you sure?')" />
                             </form>

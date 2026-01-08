@@ -14,9 +14,22 @@ $_SESSION['page'] = "themes"; ?>
 
 <body>
     <?php
-    
+
     require_once "../includes/header.php";
     ?>
+    <article class="php_messag">
+        <?php if (isset($_SESSION['success'])): ?>
+            <div class="php_good" id="good" style="color: rgb(4, 255, 0);"><?= htmlspecialchars($_SESSION['success']) ?></div>
+            <?php unset($_SESSION['success']); ?>
+        <?php endif; ?>
+    </article>
+
+    <article class="php_messag">
+        <?php if (isset($_SESSION['error'])): ?>
+            <div class="php_bad" id="bad" style="color: rgba(255, 0, 0, 1);"><?= htmlspecialchars($_SESSION['error']) ?></div>
+            <?php unset($_SESSION['error']); ?>
+        <?php endif; ?>
+    </article>
     <main class="min-h-screen flex items-center justify-center bg-gray-50">
         <div class="w-full max-w-md p-8 bg-white border border-gray-200 rounded-2xl shadow-lg">
 
@@ -24,7 +37,7 @@ $_SESSION['page'] = "themes"; ?>
                 Add New Theme
             </h1>
 
-            <form method="POST" action="../Controller/themeController.php" id="themeForm">
+            <form method="POST" action="/Digital-Garden_Version-POO/addtheme" id="themeForm">
 
                 <div>
                     <label class="block text-sm font-medium text-gray-600 mb-1">

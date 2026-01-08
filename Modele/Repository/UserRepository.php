@@ -54,16 +54,16 @@ class UserRepository
             $query = "INSERT INTO user(name , password, email,statut) VALUES(:name , :password , :email, :statut)";
             $stmt = $this->conn->prepare($query);
             $stmt->execute([
-                ":name" => $user->userName,
-                ":password" => $user->password,
-                ":email" => $user->email,
-                ":statut" => $user->statut
+                ":name" => $user->getName(),
+                ":password" => $user->getPassword(),
+                ":email" => $user->getEmail(),
+                ":statut" => $user->getStatut()
             ]);
 
             $userId = $this->conn->lastInsertId();
             $user->setId($userId);
             return $user;
-            
+
         } catch (PDOException $error) {
             throw new RuntimeException("Database error. Please try again later.");
         }

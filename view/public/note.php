@@ -23,14 +23,15 @@ $_SESSION['page'] = 'notes';
     ?>
     <article class="php_messag">
         <?php if (isset($_SESSION['success'])): ?>
-            <div class="php_good" id="flash_message" style="color: rgb(4, 255, 0);"><?= htmlspecialchars($_SESSION['success']) ?></div>
+            <div class="php_good" id="good" style="color: rgb(4, 255, 0);"><?= htmlspecialchars($_SESSION['success']) ?></div>
             <?php unset($_SESSION['success']); ?>
         <?php endif; ?>
     </article>
+
     <article class="php_messag">
-        <?php if (isset($_SESSION['success'])): ?>
-            <div class="php_bad" style="color: rgba(255, 0, 0, 1);"><?= htmlspecialchars($_SESSION['errors']) ?></div>
-            <?php unset($_SESSION['success']); ?>
+        <?php if (isset($_SESSION['error'])): ?>
+            <div class="php_bad" id="bad" style="color: rgba(255, 0, 0, 1);"><?= htmlspecialchars($_SESSION['error']) ?></div>
+            <?php unset($_SESSION['error']); ?>
         <?php endif; ?>
     </article>
 
