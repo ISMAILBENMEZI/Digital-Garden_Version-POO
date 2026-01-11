@@ -9,11 +9,14 @@ CREATE TABLE
         name VARCHAR(50),
         password VARCHAR(225),
         email VARCHAR(50),
+        img VARCHAR(100),
         statut ENUM ('pending', 'active', 'blocked'),
         Registration_date DATETIME DEFAULT CURRENT_TIMESTAMP,
         role_id int DEFAULT 1,
         Foreign Key (role_id) REFERENCES roles (id)
     );
+
+DROP TABLE User;
 
 CREATE TABLE
     Theme (
@@ -24,6 +27,7 @@ CREATE TABLE
         FOREIGN KEY (user_id) REFERENCES User (id)
     );
 
+DROP TABLE Theme;
 CREATE TABLE
     Note (
         id INT PRIMARY KEY AUTO_INCREMENT,

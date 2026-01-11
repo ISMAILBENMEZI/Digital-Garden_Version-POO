@@ -1,107 +1,146 @@
 <?php
-use Database\DataBaseConnection;
-use Modele\Entity\note;
+
+namespace Controller;
+
+use Modele\Entity\Note;
 use Modele\Repository\noteRepository;
+use service\noteService;
+use PDO;
 
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}
+class noteController
+{
+    private noteService $noteService;
 
-$conn = DataBaseConnection::getConnection();
-
-
-if (isset($_POST['addNote']) || isset($_POST['UpdateNote'])) {
-    $title = $_POST['Title'];
-    $id = $_POST['note_id'] ?? null;
-    $rating = $_POST['rating'];
-    $Content = $_POST['Content'];
-    $theme_Id = $_POST['theme_id'];
-
-    if (empty($title) || empty($rating) || empty($Content) || empty($theme_Id)) {
-        $_SESSION['errors'] = "Please fill in all experience fields";
-        header("Location: ../public/note.php");
-        exit();
+    public function __construct()
+    {
+        $this->noteService = new noteService();
     }
 
-    $note = new Note(
-        title: $title,
-        content: $Content,
-        rating: $rating,
-        theme_id: $theme_Id,
-        id: $id
-    );
 
+    public function affichaeNote()
+    {
+        $theme_id = $_POST['theme_id'];
+        if (empty($theme_id)) {
+            $_SESSION['error'] = 'error. Please try again later.';
+            exit();
+        }
 
-    $repo = new noteRepository();
+        $note = new Note(
+            title: null,
+            content: null,
+            rating: null,
+            theme_id: $theme_id,
+            id: null
+        );
 
-    $repo->addOrUpdateNote($note);
-}
-
-if (isset($_POST['viewNote'])) {
-    $theme_id = $_POST['theme_id'];
-    $notes = affichaeNote($theme_id, $conn);
-    $_SESSION['notes'] = $notes;
-    header("Location: ../public/userDashboard.php");
-    exit();
-}
-
-if (isset($_POST['modify'])) {
-    $id = $_POST['note_id'];
-
-    $query = "SELECT * FROM note WHERE  id = :id";
-    $stmt = $conn->prepare($query);
-    $stmt->execute([
-        ":id" => $id,
-    ]);
-
-    $result = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    if ($result) {
-        $_SESSION['updateNoteId'] = $result['id'];
-        $_SESSION['updateNoteContent']  = $result['content'];
-        $_SESSION['updateNoteTitle'] = $result['title'];
-        $_SESSION['theme_id'] = $result['theme_id'];
+        $result = $this->noteService->affichaeNote($note);
+        $_SESSION['ratingTheme_id'] = $_POST['theme_id'];
+        return $result;
     }
-    header("location: ../public/note.php");
-    exit();
-}
 
-if (isset($_POST['delete'])) {
-    $note_id = $_POST['note_id'];
-    deleteNote($note_id, $conn);
-}
+    public function addOrUpdateNote()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && (isset($_POST['addNote']) || isset($_POST['UpdateNote']))) {
+            $title = $_POST['Title'];
+            $id = $_POST['note_id'] ?? null;
+            $rating = $_POST['rating'] ?? 0;
+            $Content = $_POST['Content'];
+            $theme_Id = $_POST['theme_id'];
+        }
 
-if (isset($_POST['raingNote'])) {
-    $theme_id = $_POST['theme_id'];
-    $notes = ratingNote($theme_id, $conn);
-    $_SESSION['notes'] = $notes;
-    header("Location: ../public/userDashboard.php");
-    exit();
-}
+        if (empty($title) || empty($Content) || empty($theme_Id)) {
+            $_SESSION['error'] = "Please fill in all text fields";
+            header("Location: /Digital-Garden_Version-POO/view/public/note.php?theme_id=$theme_Id");
+            exit();
+        }
 
-function affichaeNote($theme_id, $conn)
-{
-    $query = "SELECT * FROM note WHERE  theme_id = :theme_id";
-    $stmt = $conn->prepare($query);
-    $stmt->execute([":theme_id" => $theme_id]);
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
+        if (strlen($title) > 255) {
+            $_SESSION['error'] = "Title is too long (Max 255 chars)";
+            header("Location: /Digital-Garden_Version-POO/view/public/note.php?theme_id=$theme_Id");
+            exit();
+        }
 
-function deleteNote($note_id, $conn)
-{
-    $query = "DELETE FROM note WHERE  id = :id";
-    $stmt = $conn->prepare($query);
-    $stmt->execute([":id" => $note_id]);
-    $_SESSION['success'] = "Note deleted successfully";
-    unset($_SESSION['notes']);
-    header("location: ../public/userDashboard.php");
-    exit();
-}
+        $note = new Note(
+            title: $title,
+            content: $Content,
+            rating: $rating,
+            theme_id: $theme_Id,
+            id: $id
+        );
 
-function ratingNote($theme_id, $conn)
-{
-    $query = "SELECT * FROM note WHERE theme_id = :theme_id ORDER BY importance DESC";
-    $stmt = $conn->prepare($query);
-    $stmt->execute([":theme_id" => $theme_id]);
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $result = $this->noteService->addOrUpdateNote($note);
+
+        if ($result === "update") {
+            unset($_SESSION['updateNoteId'], $_SESSION['updateNoteTitle'],  $_SESSION['updateNoteContent'], $_SESSION['theme_id']);
+            $_SESSION['success'] = "Note updated successfully";
+        } elseif ($result === "add") {
+            $_SESSION['success'] = 'Note created successfully';
+        } else {
+            $_SESSION['error'] = 'error. Please try again later.';
+        }
+    }
+
+    public function findNoteByid()
+    {
+        if (isset($_POST['modify'])) {
+            $id = $_POST['note_id'];
+
+            $note = new Note(
+                title: null,
+                content: null,
+                rating: null,
+                theme_id: null,
+                id: $id
+            );
+
+            $foundNote = $this->noteService->findNoteById($note);
+
+            if ($foundNote) {
+                $_SESSION['updateNoteId'] = $foundNote->id;
+                $_SESSION['updateNoteContent']  = $foundNote->content;
+                $_SESSION['updateNoteTitle'] = $foundNote->title;
+                $_SESSION['theme_id'] = $foundNote->theme_id;
+            }
+        }
+    }
+
+    public function deleteNoteById()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete'])) {
+            $id = $_POST['note_id'];
+
+            $note = new Note(
+                title: null,
+                content: null,
+                rating: null,
+                theme_id: null,
+                id: $id
+            );
+
+            $deleteResult = $this->noteService->deleteNoteById($note);
+            if ($deleteResult) {
+                $_SESSION['success'] = "Note deleted successfully!";
+            } else {
+                $_SESSION['error'] = "Could not delete Note.";
+            }
+        }
+    }
+
+    public function ratingNote()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['raingNote'])) {
+            $theme_id = $_POST['theme_id'];
+
+            $note = new Note(
+                title: null,
+                content: null,
+                rating: null,
+                theme_id: $theme_id,
+                id: null
+            );
+
+            $result = $this->noteService->ratingNote($note);
+            return $result;
+        }
+    }
 }

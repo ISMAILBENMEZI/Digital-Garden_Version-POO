@@ -19,5 +19,8 @@ class AdminService {
         
     }
     }
+    public function getAllUsers(){
+        return $this->userRepo->getAllUsers();
+    }
 
 }

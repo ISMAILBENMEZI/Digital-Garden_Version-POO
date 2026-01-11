@@ -17,11 +17,25 @@ class Theme
         $this->user_id = $user_id;
         $this->id = $id;
     }
-
-
-    public function __get($propriete)
+    
+    public function getId()
     {
-        return $this->$propriete;
+        return $this->id;
+    }
+
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    public function getColor()
+    {
+        return $this->color;
+    }
+
+    public function getUserId()
+    {
+        return $this->user_id;
     }
 
     public function setUserId($user_id)

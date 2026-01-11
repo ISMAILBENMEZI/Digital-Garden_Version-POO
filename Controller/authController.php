@@ -52,10 +52,11 @@ class AuthController
 
             $userName = trim($_POST['userName'] ?? '');
             $email = trim($_POST['email'] ?? '');
+            $imageUrl = $_POST['image_url'] ?? '';
             $password = $_POST['password'] ?? '';
             $confirmpassword = $_POST['confirmPassword'] ?? '';
 
-            if (empty($userName) || empty($email) || empty($password) || empty($confirmpassword))
+            if (empty($userName) || empty($email) || empty($imageUrl) || empty($password) || empty($confirmpassword))
                 throw new InvalidArgumentException("Please fill in all required fields.");
 
             if (!filter_var($email, FILTER_VALIDATE_EMAIL))
@@ -74,7 +75,8 @@ class AuthController
             $user = new User(
                 $userName,
                 $password,
-                $email
+                $email,
+                $imageUrl
             );
 
             try {
@@ -82,10 +84,13 @@ class AuthController
                 if ($CreatedUser) {
                     $_SESSION['user'] = $CreatedUser;
                     $_SESSION['success'] = "Account created successfully";
-                    header('Location: /Digital-Garden_Version-POO/view/public/accountPending.php');
+                    // header('Location: /Digital-Garden_Version-POO/view/public/accountPending.php');
+                    // exit;
+
+                    header("Location: /Digital-Garden_Version-POO/UserDashboard");
                     exit;
                 }
-               $_SESSION['error'] = 'This user already exists';
+                $_SESSION['error'] = 'This user already exists';
             } catch (Exception $e) {
                 $errorMessage = $e->getMessage();
             }

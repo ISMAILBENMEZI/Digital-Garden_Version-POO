@@ -28,7 +28,7 @@ public function updateStatut(){
 }
 }
 public function getAllUsers(){
-   $users = $userRepo->getAllUsers();
+   $users = $this->adminService->getAllUsers();
 }
 
 }

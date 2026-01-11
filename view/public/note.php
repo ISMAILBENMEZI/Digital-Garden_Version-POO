@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../../vendor/autoload.php';
 if (isset($_GET['theme_id'])) {
     $theme_id = $_GET['theme_id'];
 }
@@ -23,14 +24,15 @@ $_SESSION['page'] = 'notes';
     ?>
     <article class="php_messag">
         <?php if (isset($_SESSION['success'])): ?>
-            <div class="php_good" id="flash_message" style="color: rgb(4, 255, 0);"><?= htmlspecialchars($_SESSION['success']) ?></div>
+            <div class="php_good" id="good" style="color: rgb(4, 255, 0);"><?= htmlspecialchars($_SESSION['success']) ?></div>
             <?php unset($_SESSION['success']); ?>
         <?php endif; ?>
     </article>
+
     <article class="php_messag">
-        <?php if (isset($_SESSION['success'])): ?>
-            <div class="php_bad" style="color: rgba(255, 0, 0, 1);"><?= htmlspecialchars($_SESSION['errors']) ?></div>
-            <?php unset($_SESSION['success']); ?>
+        <?php if (isset($_SESSION['error'])): ?>
+            <div class="php_bad" id="bad" style="color: rgba(255, 0, 0, 1);"><?= htmlspecialchars($_SESSION['error']) ?></div>
+            <?php unset($_SESSION['error']); ?>
         <?php endif; ?>
     </article>
 
@@ -41,7 +43,7 @@ $_SESSION['page'] = 'notes';
                 Add New Note
             </h1>
 
-            <form method="POST" action="../Controller/noteController.php" id="noteForm">
+            <form method="POST" action="/Digital-Garden_Version-POO/addOrUpdatenote" id="noteForm">
                 <input type="hidden" name="theme_id" value="<?= $theme_id ?? $_SESSION['theme_id']  ?>">
 
                 <div>
