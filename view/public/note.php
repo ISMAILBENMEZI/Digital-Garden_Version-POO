@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../../vendor/autoload.php';
 if (isset($_GET['theme_id'])) {
     $theme_id = $_GET['theme_id'];
 }
@@ -42,7 +43,7 @@ $_SESSION['page'] = 'notes';
                 Add New Note
             </h1>
 
-            <form method="POST" action="../Controller/noteController.php" id="noteForm">
+            <form method="POST" action="/Digital-Garden_Version-POO/addOrUpdatenote" id="noteForm">
                 <input type="hidden" name="theme_id" value="<?= $theme_id ?? $_SESSION['theme_id']  ?>">
 
                 <div>

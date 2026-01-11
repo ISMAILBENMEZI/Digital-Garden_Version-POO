@@ -51,12 +51,13 @@ class UserRepository
     public function addUser(User $user)
     {
         try {
-            $query = "INSERT INTO user(name , password, email,statut) VALUES(:name , :password , :email, :statut)";
+            $query = "INSERT INTO user(name , password, email,img,statut) VALUES(:name , :password , :email,:img, :statut)";
             $stmt = $this->conn->prepare($query);
             $stmt->execute([
                 ":name" => $user->getName(),
                 ":password" => $user->getPassword(),
                 ":email" => $user->getEmail(),
+                ":img" => $user->getImgUrl(),
                 ":statut" => $user->getStatut()
             ]);
 

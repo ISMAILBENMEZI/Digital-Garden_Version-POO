@@ -28,23 +28,6 @@ class themeRepository
         return $result;
     }
 
-    public function UpdateTheme(Theme $theme)
-    {
-        try {
-            $query = "UPDATE theme SET Color = :Color , name = :name WHERE id = :id AND  user_id = :user_id";
-            $stmt = $this->conn->prepare($query);
-            $result = $stmt->execute([
-                ":Color" => $theme->getColor(),
-                ":name" => $theme->getTitle(),
-                ":id" => $theme->getId(),
-                ":user_id" => $theme->getUserId()
-            ]);
-            return $result;
-        } catch (PDOException $error) {
-            throw new RuntimeException("Database error. Please try again later.");
-        }
-    }
-
     public function addTheme(Theme $theme)
     {
         try {
@@ -73,6 +56,23 @@ class themeRepository
             ]);
 
             return $stmt->fetch(PDO::FETCH_OBJ);
+        } catch (PDOException $error) {
+            throw new RuntimeException("Database error. Please try again later.");
+        }
+    }
+
+    public function UpdateTheme(Theme $theme)
+    {
+        try {
+            $query = "UPDATE theme SET Color = :Color , name = :name WHERE id = :id AND  user_id = :user_id";
+            $stmt = $this->conn->prepare($query);
+            $result = $stmt->execute([
+                ":Color" => $theme->getColor(),
+                ":name" => $theme->getTitle(),
+                ":id" => $theme->getId(),
+                ":user_id" => $theme->getUserId()
+            ]);
+            return $result;
         } catch (PDOException $error) {
             throw new RuntimeException("Database error. Please try again later.");
         }

@@ -1,4 +1,5 @@
   <?php
+    require_once __DIR__ . '/../../vendor/autoload.php';
     $_SESSION['page'] = $_SESSION['page'] ?? '';
     if (session_status() == PHP_SESSION_NONE) {
         session_start();
@@ -44,10 +45,10 @@
               <div class="flex space-x-4">
                   <div class="flex items-center justify-center gap-3">
                       <h4 class="text-2xl font-semibold text-white" style="text-transform: uppercase;">
-                          Hello <?= htmlspecialchars($_SESSION['user']['name'] ?? '') ?>
+                          Hello <?= htmlspecialchars($_SESSION['user']->getName() ?? '') ?>
                       </h4>
 
-                      <img src="../public_assete/IMG/user_8801434.png"
+                      <img src=" <?= htmlspecialchars($_SESSION['user']->getImgUrl() ?? '') ?>"
                           alt="Profile"
                           class="w-9 h-9 rounded-full border border-white object-cover">
                   </div>

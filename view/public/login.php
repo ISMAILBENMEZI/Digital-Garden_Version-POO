@@ -1,8 +1,7 @@
 <?php
+require_once __DIR__ . '/../../vendor/autoload.php';
 session_start();
 $_SESSION['page'] = 'login';
-$errors = $_SESSION['errors'] ?? [];
-unset($_SESSION['errors']);
 ?>
 
 <!DOCTYPE html>

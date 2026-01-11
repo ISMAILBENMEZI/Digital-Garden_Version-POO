@@ -3,10 +3,7 @@
 namespace service;
 
 use Modele\Entity\Theme;
-use Exception;
-use InvalidArgumentException;
 use Modele\Repository\themeRepository;
-use RuntimeException;
 
 class themeService
 {
@@ -47,6 +44,10 @@ class themeService
     public function deleteThemeById(Theme $theme)
     {
         $result = $this->themeRepository->findThemeById($theme);
-        return $result;
+        if ($result) {
+            $deleteResult = $this->themeRepository->deleteThemeById($theme);
+            return $deleteResult;
+        }
+        return false;
     }
 }

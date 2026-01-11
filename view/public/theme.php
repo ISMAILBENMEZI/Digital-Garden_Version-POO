@@ -1,4 +1,6 @@
-<?php session_start();
+<?php 
+require_once __DIR__ . '/../../vendor/autoload.php';
+session_start();
 $_SESSION['page'] = "themes"; ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -37,7 +39,7 @@ $_SESSION['page'] = "themes"; ?>
                 Add New Theme
             </h1>
 
-            <form method="POST" action="/Digital-Garden_Version-POO/addtheme" id="themeForm">
+            <form method="POST" action="/Digital-Garden_Version-POO/addOrUpdatetheme" id="themeForm">
 
                 <div>
                     <label class="block text-sm font-medium text-gray-600 mb-1">

@@ -1,9 +1,10 @@
 <?php
-session_start();
 require_once __DIR__ . '/vendor/autoload.php';
+session_start();
 
 use Controller\AuthController;
 use Controller\themeController;
+use Controller\noteController;
 
 class Router
 {
@@ -33,10 +34,10 @@ class Router
         }
     }
 }
-
-
 $router = new Router();
 
+
+// ------------------------------------------------------------//
 $router->route('/Digital-Garden_Version-POO/register', function () {
     $auth = new AuthController();
     $auth->register();
@@ -48,7 +49,9 @@ $router->route('/Digital-Garden_Version-POO/', function () {
     exit;
 });
 
-$router->route('/Digital-Garden_Version-POO/addtheme', function () {
+// -------------------------------------------------------------//
+
+$router->route('/Digital-Garden_Version-POO/addOrUpdatetheme', function () {
     $authTheme = new themeController();
     $authTheme->addOrUpdateTheme();
     header("Location: /Digital-Garden_Version-POO/UserDashboard");
@@ -57,8 +60,8 @@ $router->route('/Digital-Garden_Version-POO/addtheme', function () {
 
 $router->route('/Digital-Garden_Version-POO/theme/modifyTheme', function () {
     $authTheme = new themeController();
-    $authTheme->findThemeByid($_POST['id']);
-    header('Location: view/public/theme.php');
+    $authTheme->findThemeByid();
+    header('Location:  /Digital-Garden_Version-POO/view/public/theme.php');
     exit;
 });
 
@@ -71,8 +74,46 @@ $router->route('/Digital-Garden_Version-POO/theme/deleteTheme', function () {
 
 $router->route('/Digital-Garden_Version-POO/UserDashboard', function () {
     $themeController = new themeController();
-    $themes = $themeController->affichaeTheme(); 
+    $_SESSION['themes'] = $themeController->affichaeTheme();
+    header("Location: /Digital-Garden_Version-POO/view/public/UserDashboard.php");
+    exit;
+});
+// --------------------------------------------------------------//
+
+$router->route('/Digital-Garden_Version-POO/theme/ViewNote', function () {
+    $noteController = new noteController();
+    $_SESSION['note'] = $noteController->affichaeNote();
+    header("Location: /Digital-Garden_Version-POO/UserDashboard");
+    exit;
 });
 
+$router->route('/Digital-Garden_Version-POO/addOrUpdatenote', function () {
+    $authNote = new noteController();
+    $authNote->addOrUpdateNote();
+    header("Location: /Digital-Garden_Version-POO/UserDashboard");
+    exit;
+});
 
+$router->route('/Digital-Garden_Version-POO/UserDashboard/modifyNote', function () {
+    $authNote = new noteController();
+    $authNote->findNoteByid();
+    header('Location: /Digital-Garden_Version-POO/view/public/note.php');
+    exit;
+});
+
+$router->route('/Digital-Garden_Version-POO/UserDashboard/deleteNote', function () {
+    $authNote = new noteController();
+    $authNote->deleteNoteById();
+    header("Location: /Digital-Garden_Version-POO/UserDashboard");
+    exit;
+});
+
+$router->route('/Digital-Garden_Version-POO/UserDashboard/raingNote', function () {
+    $authNote = new noteController();
+    $_SESSION['note'] = $authNote->ratingNote();
+    header("Location: /Digital-Garden_Version-POO/UserDashboard");
+    exit;
+});
+
+// ----------------------------------------------------------//
 $router->run();
