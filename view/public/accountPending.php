@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . '/../../vendor/autoload.php';
+use Modele\Entity\User;
 session_start();
 $_SESSION['page'] = 'accountPending';
 ?>
@@ -9,24 +11,29 @@ $_SESSION['page'] = 'accountPending';
     <meta charset="UTF-8">
     <title>Account Pending Approval</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../public_assets/accountPending.css">
+    <script src="../public_assets/accountPending.js" defer></script>
 </head>
 
 <body>
     <?php
     include '../includes/header.php';
     ?>
+
     <article class="php_messag">
         <?php if (isset($_SESSION['success'])): ?>
-            <div class="php_good" id="flash_message" style="color: rgb(4, 255, 0);"><?= htmlspecialchars($_SESSION['success']) ?></div>
+            <div class="php_good" id="good" style="color: rgb(4, 255, 0);"><?= htmlspecialchars($_SESSION['success']) ?></div>
             <?php unset($_SESSION['success']); ?>
         <?php endif; ?>
     </article>
+
     <article class="php_messag">
-        <?php if (isset($_SESSION['success'])): ?>
-            <div class="php_bad" style="color: rgba(255, 0, 0, 1);"><?= htmlspecialchars($_SESSION['errors']) ?></div>
-            <?php unset($_SESSION['success']); ?>
+        <?php if (isset($_SESSION['error'])): ?>
+            <div class="php_bad" id="bad" style="color: rgba(255, 0, 0, 1);"><?= htmlspecialchars($_SESSION['error']) ?></div>
+            <?php unset($_SESSION['error']); ?>
         <?php endif; ?>
     </article>
+
     <main class="min-h-screen flex items-center justify-center bg-gray-50">
         <div class="max-w-md w-full bg-white p-8 rounded-2xl shadow-md text-center">
 
@@ -40,7 +47,7 @@ $_SESSION['page'] = 'accountPending';
 
             <h1 class="text-2xl font-semibold text-gray-800 mb-2">
                 Hello Mr.<span class="text-green-600">
-                    <?= isset($_SESSION['userName']) && !empty($_SESSION['userName']) ? htmlspecialchars($_SESSION['userName']) : 'User' ?>
+                    <?= isset($_SESSION['user']) && !empty($_SESSION['user']) ? htmlspecialchars($_SESSION['user']->getName()) : 'User' ?>
                 </span>
             </h1>
 

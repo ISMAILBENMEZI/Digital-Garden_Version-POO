@@ -1,4 +1,6 @@
-<?php session_start();
+<?php
+require_once __DIR__ . '/../../vendor/autoload.php';
+session_start();
 $_SESSION['page'] = 'register'; ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -18,14 +20,15 @@ $_SESSION['page'] = 'register'; ?>
     ?>
     <article class="php_messag">
         <?php if (isset($_SESSION['success'])): ?>
-            <div class="php_good" id="flash_message" style="color: rgb(4, 255, 0);"><?= htmlspecialchars($_SESSION['success']) ?></div>
+            <div class="php_good" id="good" style="color: rgb(4, 255, 0);"><?= htmlspecialchars($_SESSION['success']) ?></div>
             <?php unset($_SESSION['success']); ?>
         <?php endif; ?>
     </article>
+
     <article class="php_messag">
-        <?php if (isset($_SESSION['success'])): ?>
-            <div class="php_bad" style="color: rgba(255, 0, 0, 1);"><?= htmlspecialchars($_SESSION['errors']) ?></div>
-            <?php unset($_SESSION['success']); ?>
+        <?php if (isset($_SESSION['error'])): ?>
+            <div class="php_bad" id="bad" style="color: rgba(255, 0, 0, 1);"><?= htmlspecialchars($_SESSION['error']) ?></div>
+            <?php unset($_SESSION['error']); ?>
         <?php endif; ?>
     </article>
     <main class="min-h-screen flex items-center justify-center bg-gray-50">
@@ -48,6 +51,39 @@ $_SESSION['page'] = 'register'; ?>
                         class="w-full px-4 py-2 border border-gray-300 rounded-lg
                            focus:outline-none focus:ring-2 focus:ring-green-500
                            focus:border-green-500">
+                </div>
+
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">
+                        Image URL
+                    </label>
+
+                    <input
+                        type="url"
+                        id="imageInput"
+                        name="image_url"
+                        placeholder="https://example.com/image.jpg"
+                        value="<?= $_POST['image_url'] ?? '' ?>"
+                        oninput="showPreview(this.value)"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg
+                            focus:outline-none focus:ring-2 focus:ring-green-500
+                            focus:border-green-500 transition-all duration-200">
+
+                    <div id="previewContainer" class="hidden mt-4 p-3 bg-gray-50 border border-gray-200 rounded-lg shadow-sm">
+                        <p class="text-xs text-gray-500 mb-2 font-medium uppercase tracking-wide">Preview:</p>
+
+                        <img
+                            id="imagePreview"
+                            src=""
+                            alt="Image Preview"
+                            class="w-full max-h-64 object-contain rounded-md bg-white border border-gray-200"
+                            onload="imageLoaded()"
+                            onerror="imageFailed()">
+
+                        <p id="errorText" class="hidden text-red-500 text-sm mt-2 text-center font-semibold">
+                            Invalid Image Link
+                        </p>
+                    </div>
                 </div>
 
                 <div>
@@ -92,7 +128,7 @@ $_SESSION['page'] = 'register'; ?>
         </div>
     </main>
     <?php require_once "../includes/footer.php" ?>
-    <script src="../public_assets/script.js"></script>
+    <script src="../public_assets/register.js"></script>
 </body>
 
 </html>

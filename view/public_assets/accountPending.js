@@ -14,6 +14,3 @@ setTimeout(()=>{
         loginMsg.style.display = 'none';
     }
 },3000);
-
-
-

@@ -14,6 +14,20 @@ $_SESSION['page'] = 'accountBlocked'; ?>
     include '../includes/header.php';
     ?>
 
+    <article class="php_messag">
+        <?php if (isset($_SESSION['success'])): ?>
+            <div class="php_good" id="good" style="color: rgb(4, 255, 0);"><?= htmlspecialchars($_SESSION['success']) ?></div>
+            <?php unset($_SESSION['success']); ?>
+        <?php endif; ?>
+    </article>
+
+    <article class="php_messag">
+        <?php if (isset($_SESSION['error'])): ?>
+            <div class="php_bad" id="bad" style="color: rgba(255, 0, 0, 1);"><?= htmlspecialchars($_SESSION['error']) ?></div>
+            <?php unset($_SESSION['error']); ?>
+        <?php endif; ?>
+    </article>
+
     <main class="min-h-screen flex items-center justify-center bg-gray-50">
         <div class="max-w-md w-full bg-white p-8 rounded-2xl shadow-md text-center">
 
