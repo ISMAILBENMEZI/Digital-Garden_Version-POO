@@ -18,18 +18,27 @@ class User{
        $this->statut = $statut;
        $this->email = $email;
     }
+   
+   public function getId(){
+    return $this->id;
+   }
+   public function getRole(){
+    return $this->role;
+   }
+    public function getUserName(){
+        return $this->userName;
+    }
+   public function getPassword(){
+      return $this->password;
+   }
+    public function getEmail()
+    {
+        return $this->email;
+    }
 
-    public function __get($property){
-        return $this->$property;
+    public function setUserName($value){
+        $this->userName = $value;
     }
-    public function getPassword(){
-        return $this->password;
-    }
-    
-    public function __set($property , $value){
-        $this->$property = $value;
-    }
-    
 
     public function setId($id){
         if($id > 0){

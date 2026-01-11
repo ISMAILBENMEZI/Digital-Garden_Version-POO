@@ -1,49 +1,47 @@
 <?php
 
 namespace service;
-use Modele\Entity\User; 
+
+use Modele\Entity\User;
 use Modele\Repository\UserRepository;
 use Exception;
 use InvalidArgumentException;
 use RuntimeException;
 
-class AuthService {
-    public UserRepository $userRepo;
+class AuthService
+{
+    private UserRepository $userRepo;
 
-    public function __construct(UserRepository $userRepo) {
-        $this->userRepo = $userRepo;
+    public function __construct()
+    {
+        $this->userRepo = new UserRepository();
     }
 
-    public function login(User $user) {
-        $userV = $this->userRepo->findByEmail($user);
-        if (!$userV || !password_verify($userV->getPassword(), $user->getPassword())) {
+    public function login(User $user)
+    {
+        $userFind = $this->userRepo->findByEmail($user);
+       
+    
+        if (!$userFind || !password_verify($user->getPassword(), $userFind->getPassword())) {
             throw new Exception("Email or password incorrect");
         }
+        
+        
+        
+        return $userFind;
     }
 
-    public function register($userName, $email, $password ,$confirmpassword){
-      
-        if (empty($userName) || empty($email) || empty($password) || empty($confirmpassword))
-            throw new InvalidArgumentException("Please fill in all required fields.");
-
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL))
-            throw new InvalidArgumentException("Invalid email format");
-
-        if ($password !== $confirmpassword) {
-             throw new InvalidArgumentException("Passwords do not match.");
+    public function register(User $user)
+    {
+        try {
+            $FindUser = $this->userRepo->findByEmail($user);
+          
+        if (!$FindUser) 
+            return $this->userRepo->addUser($user);
+        return false;
+        } catch (\Throwable $th) {
+            echo $th;
         }
-
-        $passwordH = password_hash($password, PASSWORD_DEFAULT);
-
-        $user = new User(
-             $userName, 
-             $passwordH,
-             $email
-        );
-    
-        $this->userRepo->addUser($user);
         
-        $_SESSION['success'] = "Account created successfully";
-        $_SESSION['userName'] = $userName;
     }
 }

@@ -68,6 +68,7 @@ VALUES
     ('user'),
     ('admin');
 
+select * from user;
 CREATE TABLE
     Report (
         id INT PRIMARY KEY AUTO_INCREMENT,

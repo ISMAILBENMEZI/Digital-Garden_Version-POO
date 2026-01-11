@@ -1,29 +1,37 @@
 <?php
-session_start();
 
-use Modele\Repository\UserRepository;
-
-
-if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'admin') {
-    header('Location: login.php');
-    exit;
-}
-
-$userRepo = new UserRepository();
-
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $userId = (int) $_POST['user_id'];
-    $newStatut = $_POST['statut'];
-
-    $allowed = ['pending', 'active', 'blocked'];
-    if (in_array($newStatut, $allowed)) {
-        $userRepo->updateStatut($userId, $newStatut);
-        $_SESSION['message'] = 'update statut successfull';
+class adminController {
+    private $adminService;
+    public function __construct()
+    {
+       
+        $this->adminService = new AdminService();
     }
 
+public function checkRole(){
+    $isAdmin = $this->adminService->isAdmin();
+    if(!$isAdmin){
+        header('Location: login.php');
+        exit;
+    }
     header('Location: dashboard.php');
     exit;
 }
 
-$users = $userRepo->getAllUsers();
+public function updateStatut(){
+   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $userId = (int) $_POST['user_id'];
+    $newStatut = $_POST['statut'];
+    $this->adminService->updateStatut($userId , $newStatut);
+    header('Location: dashboard.php');
+    exit;
+}
+}
+public function getAllUsers(){
+   $users = $userRepo->getAllUsers();
+}
+
+}
+
+
+

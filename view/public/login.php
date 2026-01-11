@@ -38,7 +38,7 @@ unset($_SESSION['errors']);
                 Log in
             </h1>
 
-            <form class="space-y-4" id="loginForm" method="POST" action="../login.php">
+            <form class="space-y-4" id="loginForm" method="POST" action="/Digital-Garden_Version-POO/login">
 
                 <div>
                     <label class="block text-green-700 mb-1">Email</label>

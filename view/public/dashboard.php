@@ -1,7 +1,7 @@
 <?php
 session_start();
 $_SESSION['page'] = "adminDashbord";
-require '../Controller/adminController.php';
+require '../../Controller/adminController.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -44,7 +44,7 @@ require '../Controller/adminController.php';
                             <?= ucfirst($user->statut) ?>
                             </td>
                             <td>
-                                <form method="POST">
+                                <form method="POST" >
                                     <input type="hidden" name="user_id" value="<?= $user->id ?>">
                                     <select name="statut">
                                         <option value="pending" <?= $user->statut === 'pending' ? 'selected' : '' ?>>Pending</option>
