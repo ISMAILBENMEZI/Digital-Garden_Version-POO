@@ -57,13 +57,13 @@ $_SESSION['page'] = "userDashboard";
 
                             <div class="flex justify-between items-start">
                                 <div class="flex items-center gap-3">
-                                    <img src="<?= $_SESSION['user']->getImgUrl() ?? '../IMG/default_user.png' ?>"
+                                    <img src="<?= $_SESSION['user']->img ?? 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png' ?>"
                                         alt="User"
                                         class="w-10 h-10 rounded-full object-cover border-2 border-white shadow-sm">
 
                                     <div class="flex flex-col">
                                         <span class="text-xs text-gray-500 font-bold uppercase tracking-wide">
-                                            <?= $_SESSION['user']->getName()?? 'Me' ?>
+                                            <?= $_SESSION['user']->name ?? 'Me' ?>
                                         </span>
                                         <h5 class="font-bold text-gray-800 text-lg capitalize leading-tight">
                                             <?= htmlspecialchars($theme->name) ?>
@@ -80,7 +80,8 @@ $_SESSION['page'] = "userDashboard";
                             </div>
 
                             <div id="menu-<?= $theme->id ?>"
-                                class="hidden absolute right-4 top-12 w-48 bg-white rounded-xl shadow-xl z-50 border border-gray-100 overflow-hidden fade-in-menu">
+                                class="hidden absolute right-4 top-12 w-48 bg-white rounded-xl shadow-xl z-[100] border border-gray-100 overflow-hidden fade-in-menu"
+                                style="z-index: 9999;">
 
                                 <form method="post" action="/Digital-Garden_Version-POO/theme/ViewNote" class="w-full">
                                     <input name="theme_id" value="<?= htmlspecialchars($theme->id) ?>" type="hidden" />

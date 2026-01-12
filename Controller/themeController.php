@@ -18,7 +18,7 @@ class themeController
     function affichaeTheme()
     {
         if (isset($_SESSION['user']) && is_object($_SESSION['user'])) {
-            $user_id = $_SESSION['user']->getId();
+            $user_id = $_SESSION['user']->id;
         } else {
             $_SESSION['error'] = "Session expired. Please login again.";
             header("Location: ../view/public/login.php");
@@ -42,9 +42,10 @@ class themeController
             $id = !empty($_POST['id']) ? $_POST['id'] : null;
             $title = $_POST['Title'] ?? '';
             $color = $_POST['color'] ?? '';
+            $status = $_POST['status'] ?? '';
 
             if (isset($_SESSION['user']) && is_object($_SESSION['user'])) {
-                $user_id = $_SESSION['user']->getId();
+                $user_id = $_SESSION['user']->id;
             } else {
                 $_SESSION['error'] = "Session expired. Please login again.";
                 header("Location: ../view/public/login.php");
@@ -67,7 +68,8 @@ class themeController
                 title: $title,
                 color: $color,
                 user_id: $user_id,
-                id: $id
+                id: $id,
+                status: $status
             );
 
             $result = $this->themeService->addOrUpdateTheme($theme);
@@ -131,15 +133,28 @@ class themeController
             );
 
             $foundTheme = $this->themeService->findThemeById($theme);
-            
+
             if ($foundTheme) {
                 $_SESSION['updateTitle'] = $foundTheme->name;
                 $_SESSION['updateColor'] = $foundTheme->Color;
                 $_SESSION['updateId'] = $foundTheme->id;
+                $_SESSION['updateSetatus'] = $foundTheme->status;
                 return true;
             }
             $_SESSION['error'] = "Theme not found.";
             return false;
         }
+    }
+
+    public function publicThemes()
+    {
+        $foundTheme = $this->themeService->publicThemes();
+
+        if ($foundTheme) {
+            $_SESSION['publicThemes'] = $foundTheme;
+            return true;
+        }
+        $_SESSION['error'] = "Theme not found.";
+        return false;
     }
 }

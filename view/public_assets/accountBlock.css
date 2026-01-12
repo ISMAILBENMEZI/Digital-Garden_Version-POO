@@ -1,0 +1,21 @@
+.php_messag {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    top: 10px;
+    left: 0;
+    width: 100%;
+}
+
+.php_messag .php_good,
+.php_messag .php_bad {
+    z-index: 1200;
+    background: #ffffff;
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: 2px solid transparent;
+    box-shadow: 0 2px 10px rgba(123, 223, 242, 0.4);
+    animation: errorMessag 0.5s ease;
+    margin-bottom: 10px;
+}

@@ -14,7 +14,7 @@ class User
     private $role;
     private $statut;
 
-    public function __construct($userName, $password, $email, $imageUrl, $role = 'user', $statut = "pending")
+    public function __construct($userName, $password, $email, $imageUrl, $id = null, $role = 'user', $statut = "pending")
     {
         $this->userName = $userName;
         $this->password = $password;
@@ -22,6 +22,7 @@ class User
         $this->statut = $statut;
         $this->email = $email;
         $this->imageUrl= $imageUrl;
+        $this->id = $id;
     }
 
     public function getImgUrl() {

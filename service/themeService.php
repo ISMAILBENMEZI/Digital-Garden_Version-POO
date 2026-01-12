@@ -50,4 +50,12 @@ class themeService
         }
         return false;
     }
+
+    public function publicThemes()
+    {
+        $result = $this->themeRepository->publicThemes();
+        if ($result)
+            return $result;
+        return false;
+    }
 }

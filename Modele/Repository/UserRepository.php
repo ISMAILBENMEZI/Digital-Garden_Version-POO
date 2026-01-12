@@ -26,6 +26,7 @@ class UserRepository
             u.name,
             u.email,
             u.password,
+            u.role_id,
             u.statut,
             r.status AS role
         FROM user u
@@ -70,7 +71,7 @@ class UserRepository
         }
     }
 
-    public function getAllUsers()
+    public function getAllUsers(User $user)
     {
         $sql = "
             SELECT id , name , email , statut FROM user where role_id = 1
@@ -80,14 +81,14 @@ class UserRepository
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
-    public function updateStatut(int $userId, string $statut)
+    public function updateStatut(User $user)
     {
         $sql = "UPDATE user SET statut = :statut WHERE id = :id";
         $stmt = $this->conn->prepare($sql);
 
         return $stmt->execute([
-            ':statut' => $statut,
-            ':id' => $userId
+            ':statut' => $user->getStatut(),
+            ':id' => $user->getId()
         ]);
     }
 }

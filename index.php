@@ -2,9 +2,11 @@
 require_once __DIR__ . '/vendor/autoload.php';
 session_start();
 
+use Controller\adminController;
 use Controller\AuthController;
 use Controller\themeController;
 use Controller\noteController;
+use Controller\ReportController;
 
 class Router
 {
@@ -79,6 +81,35 @@ $router->route('/Digital-Garden_Version-POO/UserDashboard', function () {
     exit;
 });
 // --------------------------------------------------------------//
+$router->route('/Digital-Garden_Version-POO/login', function () {
+    $auth = new AuthController();
+    $loginResult = $auth->Login();
+    switch ($loginResult) {
+        case "pending":
+            header('Location: /Digital-Garden_Version-POO/view/public/accountPending.php');
+            break;
+        case "blocked":
+            header('Location: /Digital-Garden_Version-POO/view/public/accountBlock.php');
+            break;
+        case "user":
+            header('Location: /Digital-Garden_Version-POO/view/public/userDashboard.php');
+            break;
+        case "admin":
+            $adminController = new adminController();
+            $adminController->getAllUsers();
+            $reportController = new ReportController();
+            $reportController->getAllReports();
+            header('Location: /Digital-Garden_Version-POO/view/public/dashboard.php');
+            break;
+        case "Moderator":
+            header('Location: /Digital-Garden_Version-POO/view/public/accountModrator.php');
+            break;
+        default:
+            header('Location: /Digital-Garden_Version-POO/view/public/login.php');
+            break;
+    }
+});
+// --------------------------------------------------------------//
 
 $router->route('/Digital-Garden_Version-POO/theme/ViewNote', function () {
     $noteController = new noteController();
@@ -112,6 +143,28 @@ $router->route('/Digital-Garden_Version-POO/UserDashboard/raingNote', function (
     $authNote = new noteController();
     $_SESSION['note'] = $authNote->ratingNote();
     header("Location: /Digital-Garden_Version-POO/UserDashboard");
+    exit;
+});
+// ---------------------------------------------------------//
+$router->route('/Digital-Garden_Version-POO/explore', function () {
+    $authTheme = new themeController();
+    $authTheme->publicThemes();
+    header('Location: /Digital-Garden_Version-POO/view/public/explore.php');
+    exit;
+});
+// ----------------------------------------------------------//
+$router->route('/Digital-Garden_Version-POO/dashboard/UpdateStatut', function () {
+    $adminController = new adminController();
+    $adminController->updateStaut();
+    $adminController->getAllUsers();
+    header('Location: /Digital-Garden_Version-POO/view/public/dashboard.php');
+    exit;
+});
+$router->route('/Digital-Garden_Version-POO/dashboard/UpdateRepor', function () {
+    $reportController = new ReportController();
+    $reportController->updateReport();
+    $reportController->getAllReports();
+    header('Location: /Digital-Garden_Version-POO/view/public/dashboard.php');
     exit;
 });
 

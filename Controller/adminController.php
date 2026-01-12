@@ -1,29 +1,60 @@
 <?php
-session_start();
 
-use Modele\Repository\UserRepository;
+namespace Controller;
 
+use Modele\Entity\User;
+use service\adminService;
 
-if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'admin') {
-    header('Location: login.php');
-    exit;
-}
+class adminController
+{
 
-$userRepo = new UserRepository();
+    private adminService $adminService;
 
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $userId = (int) $_POST['user_id'];
-    $newStatut = $_POST['statut'];
-
-    $allowed = ['pending', 'active', 'blocked'];
-    if (in_array($newStatut, $allowed)) {
-        $userRepo->updateStatut($userId, $newStatut);
-        $_SESSION['message'] = 'update statut successfull';
+    public function __construct()
+    {
+        $this->adminService = new adminService();
     }
 
-    header('Location: dashboard.php');
-    exit;
-}
+    public function getAllUsers()
+    {
+        $user = new User(
+            userName: null,
+            password: null,
+            email: null,
+            imageUrl: null
+        );
+        $users = $this->adminService->getAllUsers($user);
+        if ($users) {
+            $_SESSION['users'] = $users;
+            return true;
+        }
+        return false;
+    }
 
-$users = $userRepo->getAllUsers();
+    public function updateStaut()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $id =    $_POST['user_id'];
+            $statut = $_POST['statut'];
+            $allowed = ['pending', 'active', 'blocked'];
+            $user = new User(
+                userName: null,
+                password: null,
+                email: null,
+                imageUrl: null,
+                id: $id,
+                role: "user",
+                statut: $statut
+            );
+            if (in_array($statut, $allowed)) {
+                $result = $this->adminService->updateStatut($user);
+                if ($result) {
+                    $_SESSION['success'] = 'update statut successfull';
+                    return true;
+                }
+                $_SESSION['error'] = 'error. Please try again later.';
+                return false;
+            }
+        }
+    }
+}
