@@ -9,13 +9,15 @@ class Theme
     private $title;
     private $color;
     private $user_id;
+    private $status;
 
-    public function __construct($title, $color, $user_id, $id)
+    public function __construct($title, $color, $user_id, $id, $status= "public")
     {
         $this->title = $title;
         $this->color = $color;
         $this->user_id = $user_id;
         $this->id = $id;
+        $this->status = $status;
     }
     
     public function getId()
@@ -36,6 +38,11 @@ class Theme
     public function getUserId()
     {
         return $this->user_id;
+    }
+
+    public function getStatus()
+    {
+        return $this->status;
     }
 
     public function setUserId($user_id)

@@ -31,12 +31,13 @@ class themeRepository
     public function addTheme(Theme $theme)
     {
         try {
-            $query = "INSERT INTO theme(name , Color , user_id) VALUES(:name,:Color,:user_id)";
+            $query = "INSERT INTO theme(name , Color ,status ,user_id) VALUES(:name,:Color,:status,:user_id)";
 
             $stmt = $this->conn->prepare($query);
             $result =  $stmt->execute([
                 ":name" => $theme->getTitle(),
                 ":Color" => $theme->getColor(),
+                ":status" => $theme->getStatus(),
                 ":user_id" => $theme->getUserId()
             ]);
             return $result;
@@ -64,11 +65,12 @@ class themeRepository
     public function UpdateTheme(Theme $theme)
     {
         try {
-            $query = "UPDATE theme SET Color = :Color , name = :name WHERE id = :id AND  user_id = :user_id";
+            $query = "UPDATE theme SET Color = :Color , name = :name, status = :status WHERE id = :id AND  user_id = :user_id";
             $stmt = $this->conn->prepare($query);
             $result = $stmt->execute([
                 ":Color" => $theme->getColor(),
                 ":name" => $theme->getTitle(),
+                ":status" => $theme->getStatus(),
                 ":id" => $theme->getId(),
                 ":user_id" => $theme->getUserId()
             ]);
@@ -93,6 +95,28 @@ class themeRepository
             return $stmt->rowCount() > 0;
         } catch (PDOException $error) {
             throw new RuntimeException("Database error. Please try again later.");
+        }
+    }
+
+    public function publicThemes()
+    {
+        try {
+            $query = "
+                SELECT 
+                    t.*, 
+                    u.name AS author_name, 
+                    u.img AS author_img
+                FROM theme t
+                JOIN user u ON t.user_id = u.id
+                WHERE t.status = 'public'
+            ";
+
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_OBJ);
+            
+        } catch (PDOException $error) {
+            throw new RuntimeException("Database error: " . $error->getMessage());
         }
     }
 }

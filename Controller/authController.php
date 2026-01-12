@@ -16,22 +16,52 @@ class AuthController
         $this->authService = new AuthService();
     }
 
-    // public function login()
-    // {
-    //     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    //         try {
-    //             $this->authService->login($_POST['email'], $_POST['password']);
-    //             header('Location: ../view/public/dashboard.php');
-    //             exit;
-    //         } catch (Exception $e) {
-    //             $errorMessage = $e->getMessage();
-    //         }
-    //     }
+    public function login()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    //     require '../includes/header.php';
-    //     require '../views/auth/login.php';
-    //     require '../includes/footer.php';
-    // }
+            $email = trim($_POST['email'] ?? '');
+            $password = $_POST['password'] ?? '';
+
+            if ((empty($email) || empty($password)))
+                throw new InvalidArgumentException("Please fill in all required fields.");
+
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL))
+                throw new InvalidArgumentException("Invalid email format");
+
+            if (strlen($password) < 8)
+                throw new InvalidArgumentException("Password must be at least 8 characters long.");
+
+
+            $user = new User(
+                userName: null,
+                password: $password,
+                email: $email,
+                imageUrl: null
+            );
+            try {
+                $userResult = $this->authService->login($user);
+                if ($userResult) {
+                    $_SESSION['user'] = $userResult;
+                    $_SESSION['success'] = "Welcome back " . $_SESSION['user']->name;
+                    if ($userResult->statut === "pending")
+                        return "pending";
+                    elseif ($userResult->statut === "blocked")
+                        return "blocked";
+                    elseif ($userResult->statut === "active") {
+                        if ($userResult->role_id == 1) return "user"; 
+                        if ($userResult->role_id == 2) return "admin";
+                        if ($userResult->role_id == 3) return "Moderator";
+                    } else
+                        $_SESSION['error'] = 'error. Please try again later.';
+                }
+                $_SESSION['error'] = 'Email or password incorrect';
+                return false;
+            } catch (Exception $e) {
+                $errorMessage = $e->getMessage();
+            }
+        }
+    }
 
     public function register()
     {
@@ -71,11 +101,11 @@ class AuthController
                 if ($CreatedUser) {
                     $_SESSION['user'] = $CreatedUser;
                     $_SESSION['success'] = "Account created successfully";
-                    // header('Location: /Digital-Garden_Version-POO/view/public/accountPending.php');
-                    // exit;
-
-                    header("Location: /Digital-Garden_Version-POO/UserDashboard");
+                    header('Location: /Digital-Garden_Version-POO/view/public/accountPending.php');
                     exit;
+
+                    // header("Location: /Digital-Garden_Version-POO/UserDashboard");
+                    // exit;
                 }
                 $_SESSION['error'] = 'This user already exists';
             } catch (Exception $e) {

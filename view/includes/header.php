@@ -4,8 +4,6 @@
     if (session_status() == PHP_SESSION_NONE) {
         session_start();
     }
-    define('ROOT_PATH', dirname(__DIR__, 2));
-    require_once ROOT_PATH . '/config/config.php';
     ?>
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   <header class="bg-green-600 text-white shadow-md">
@@ -16,21 +14,32 @@
           </h2>
 
           <?php if ($_SESSION['page'] === 'index'): ?>
+              <a href="/Digital-Garden_Version-POO/explore"
+                  class="px-4 py-2 rounded-md border border-white hover:bg-white hover:text-green-600 transition">
+                  Explore
+              </a>
+
               <div class="flex space-x-4">
-                  <a href="<?= BASE_URL ?>view/public/register.php"
+                  <a href="view/public/register.php"
                       class="px-4 py-2 rounded-md border border-white hover:bg-white hover:text-green-600 transition">
                       Create Account
                   </a>
 
-                  <a href="<?= BASE_URL ?>view/public/login.php"
+                  <a href="view/public/login.php"
                       class="px-4 py-2 rounded-md bg-white text-green-600 font-semibold hover:bg-green-100 transition">
                       Login
                   </a>
+
               </div>
               <?php unset($_SESSION['page']); ?>
           <?php elseif ($_SESSION['page'] === "register" || $_SESSION['page'] === "accountPending"): ?>
               <div class="flex space-x-4">
-                  <a href="<?= BASE_URL ?>index.php"
+                  <a href="/Digital-Garden_Version-POO/explore"
+                      class="px-4 py-2 rounded-md border border-white hover:bg-white hover:text-green-600 transition">
+                      Explore
+                  </a>
+
+                  <a href="../../home.php"
                       class="px-4 py-2 rounded-md border border-white hover:bg-white hover:text-green-600 transition">
                       Accueil
                   </a>
@@ -45,20 +54,23 @@
               <div class="flex space-x-4">
                   <div class="flex items-center justify-center gap-3">
                       <h4 class="text-2xl font-semibold text-white" style="text-transform: uppercase;">
-                          Hello <?= htmlspecialchars($_SESSION['user']->getName() ?? '') ?>
+                          Hello <?= htmlspecialchars($_SESSION['user']->name ?? '') ?>
                       </h4>
 
-                      <img src=" <?= htmlspecialchars($_SESSION['user']->getImgUrl() ?? '') ?>"
+                      <img src=" <?= htmlspecialchars($_SESSION['user']->img ?? "https://cdn-icons-png.flaticon.com/512/3135/3135715.png") ?>"
                           alt="Profile"
                           class="w-9 h-9 rounded-full border border-white object-cover">
                   </div>
-
-                  <a href="<?= BASE_URL ?>index.php"
+                  <a href="/Digital-Garden_Version-POO/explore"
+                      class="px-4 py-2 rounded-md border border-white hover:bg-white hover:text-green-600 transition">
+                      Explore
+                  </a>
+                  <a href="../../home.php"
                       class="px-4 py-2 rounded-md border border-white hover:bg-white hover:text-green-600 transition">
                       Accueil
                   </a>
 
-                  <a href="<?= BASE_URL ?>logout.php"
+                  <a href="../../logout.php"
                       class="px-4 py-2 rounded-md bg-white text-green-600 font-semibold hover:bg-green-100 transition">
                       Log out
                   </a>
@@ -66,12 +78,12 @@
               <?php unset($_SESSION['page']); ?>
           <?php elseif ($_SESSION['page'] === "login" || $_SESSION['page'] === "adminDashbord" || $_SESSION['page'] === "accountBlocked"): ?>
               <div class="flex space-x-4">
-                  <a href="<?= BASE_URL ?>index.php"
+                  <a href="../../home.php"
                       class="px-4 py-2 rounded-md border border-white hover:bg-white hover:text-green-600 transition">
                       Accueil
                   </a>
 
-                  <a href="<?= BASE_URL ?>logout.php"
+                  <a href="../../logout.php"
                       class="px-4 py-2 rounded-md bg-white text-green-600 font-semibold hover:bg-green-100 transition">
                       Log out
                   </a>

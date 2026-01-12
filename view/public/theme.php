@@ -1,4 +1,4 @@
-<?php 
+<?php
 require_once __DIR__ . '/../../vendor/autoload.php';
 session_start();
 $_SESSION['page'] = "themes"; ?>
@@ -62,6 +62,26 @@ $_SESSION['page'] = "themes"; ?>
                         value="<?= $_SESSION['updateColor'] ?? "" ?>"
                         class="w-full h-14 cursor-pointer appearance-none"
                         style="border-radius: 10px;" />
+                </div>
+
+                <div class="mt-4">
+                    <label class="block text-sm font-medium text-gray-600 mb-1">
+                        Visibility
+                    </label>
+                    <select
+                        name="status"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg bg-white
+                            focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+
+                        <option value="public" <?= (isset($_SESSION['updateSetatus']) && $_SESSION['updateSetatus'] == 'public') ? 'selected' : '' ?>>
+                            Public
+                        </option>
+
+                        <option value="private" <?= (isset($_SESSION['updateSetatus']) && $_SESSION['updateSetatus'] == 'private') ? 'selected' : '' ?>>
+                            Private
+                        </option>
+
+                    </select>
                 </div>
 
                 <input type="hidden" name="id" value="<?= $_SESSION['updateId'] ?? '' ?>" />

@@ -11,7 +11,7 @@ $_SESSION['page'] = 'login';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Log in</title>
-    <link rel="stylesheet" href="../public_assets/login.php">
+    <link rel="stylesheet" href="../public_assets/login.css">
 </head>
 
 <body>
@@ -38,7 +38,7 @@ $_SESSION['page'] = 'login';
                 Log in
             </h1>
 
-            <form class="space-y-4" id="loginForm" method="POST" action="../login.php">
+            <form class="space-y-4" id="loginForm" method="POST" action="/Digital-Garden_Version-POO/login">
 
                 <div>
                     <label class="block text-green-700 mb-1">Email</label>
@@ -51,13 +51,6 @@ $_SESSION['page'] = 'login';
                     <input type="password" id="password" name="password"
                         class="w-full px-4 py-2 border border-green-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
                 </div>
-                <?php if (!empty($errors)): ?>
-                    <ul style="color:red;">
-                        <?php foreach ($errors as $error): ?>
-                            <li><?= htmlspecialchars($error) ?></li>
-                        <?php endforeach; ?>
-                    </ul>
-                <?php endif; ?>
                 <input type="submit" value="submit" name="login"
                     class="w-full mt-4 bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition duration-200 cursor-pointer">
             </form>

@@ -7,6 +7,7 @@ $_SESSION['page'] = 'accountBlocked'; ?>
     <meta charset="UTF-8">
     <title>Account Blocked</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../public_assets/accountBlock.css">
 </head>
 
 <body>
@@ -40,7 +41,7 @@ $_SESSION['page'] = 'accountBlocked'; ?>
             <h1 class="text-2xl font-semibold text-gray-800 mb-2">
                 Hello Mr.
                 <span class="text-red-600">
-                    <?= isset($_SESSION['userName']) && !empty($_SESSION['userName']) ? htmlspecialchars($_SESSION['userName']) : 'User' ?>
+                    <?= isset($_SESSION['user']) && !empty($_SESSION['user']) ? htmlspecialchars($_SESSION['user']->name) : 'User' ?>
                 </span>
             </h1>
 

@@ -1,23 +1,44 @@
 
+
 function toggleDropdown(menuId) {
     const allMenus = document.querySelectorAll('[id^="menu-"]');
+
     allMenus.forEach(menu => {
-        if (menu.id !== menuId) {
+        const card = menu.closest('.theme');
+
+        if (menu.id === menuId) {
+            if (menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+                card.style.zIndex = "50";
+                card.style.position = "relative";
+                console.log("Opening menu, z-index set to 50");
+            } else {
+
+                menu.classList.add('hidden');
+                card.style.zIndex = "0";
+                console.log("Closing menu, z-index reset");
+            }
+        } else {
             menu.classList.add('hidden');
+            if (card) {
+                card.style.zIndex = "0";
+            }
         }
     });
-    const menu = document.getElementById(menuId);
-    menu.classList.toggle('hidden');
 }
+
 
 window.onclick = function (event) {
     if (!event.target.closest('.theme')) {
         const allMenus = document.querySelectorAll('[id^="menu-"]');
         allMenus.forEach(menu => {
             menu.classList.add('hidden');
+            const card = menu.closest('.theme');
+            if (card) card.style.zIndex = "0";
         });
     }
 }
+
 
 
 setTimeout(() => {
